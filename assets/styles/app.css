@@ -1,3 +1,8 @@
 body {
-    background-color: skyblue;
+    background-color: #213131;
+}
+
+.villageGreen{
+    text-shadow: #749a7e 1px 0 10px;
+    color: #749a7e;
 }
