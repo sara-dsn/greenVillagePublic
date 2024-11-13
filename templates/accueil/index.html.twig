@@ -2,9 +2,68 @@
 
 
 {% block body %}
-<div class="container-fluid d-flex">
-<img class="img-fluid d-flex-fill " src="{{ asset('image/logo.png')}}">
-<h1 class="d-flex-fill fw-bold villageGreen">Village Green</h1>
+<div class="container-fluid d-flex ">
+    <img class="img-fluid d-flex-fill col-1" src="{{ asset('image/logo.png')}}">
+    <div class="flex-column col-9">
+        <h1 class="d-flex-fill text-center fw-bold villageGreen">Green Village</h1>
+        <div class="d-flex justify-content-center">
+            <form class="input-group w-25 float-sm">
+                <input label="searchbar" type="text" placeholder="Recherche" class="form-control w-75 searchbar">
+                <button class="form-control btn searchbar" ><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex flex-column ">
+        <div class="p-2"></div>
+        <div class="col-2 d-flex align-item p-2">
+            <img class="img-fluid mx-1 " src="{{asset('image/icone/coeur.png')}}">
+            <img class="img-fluid mx-1" src="{{asset('image/icone/caddie.png')}}">
+            <img class="img-fluid mx-1" src="{{asset('image/icone/tchat.png')}}">
+            <img class="img-fluid mx-1" src="{{asset('image/icone/profil.png')}}">
+            <img class="img-fluid mx-1" src="{{asset('image/icone/info.png')}}">
+        </div>
+    </div>
+</div>
+<nav class="navbar">
+  <div class="container-fluid fw-bold">
+    <a class="navbar-brand" href="#">tambour</a>
+    <a class="navbar-brand" href="#">djembé</a>
+    <a class="navbar-brand" href="#">batterie</a>
+    <a class="navbar-brand" href="#">bongo</a>
+    <a class="navbar-brand" href="#">clarinette</a>
+    <a class="navbar-brand" href="#">saxophone</a>
+    <a class="navbar-brand" href="#">travèrsiere</a>
+    <a class="navbar-brand" href="#">flûte</a>
+    <a class="navbar-brand" href="#">piano</a>
+    <a class="navbar-brand" href="#">guitare</a>
+    <a class="navbar-brand" href="#">harpe</a>
+    <a class="navbar-brand" href="#">alto</a>
+    <a class="navbar-brand" href="#">contrebasse</a>
+    <a class="navbar-brand" href="#">violoncelle</a>
+  </div>
+</nav>
+
+<div  class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{asset('image/bandeau/bandeaupiano.jpg')}}" class="d-block w-100" alt="piano en promotion">
+    </div>
+    <div class="carousel-item active">
+      <img src="{{asset('image/bandeau/bandeaupiano2.jpg')}}" class="d-block w-100" alt="piano en promotion">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    {# <img alt="flèche suivante" src="{{asset('image/icone/fleche.png')}}"> #}
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
 {% endblock %}

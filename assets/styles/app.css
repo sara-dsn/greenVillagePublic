@@ -3,6 +3,24 @@ body {
 }
 
 .villageGreen{
-    text-shadow: #749a7e 1px 0 10px;
+    text-shadow: #d3ebd9 1px 0 10px;
+    color:  #749a7e;
+    font-size:500% ;
+}
+
+.searchbar{
+    background-color: #152927;
+    border-color: #152927;
+    font-style: #749a7e;
     color: #749a7e;
+}
+input::placeholder{
+color:#749a7e;
+opacity:5;
+}
+.navbar{
+    background-color:black;
+}
+.navbar-brand{
+    color:#749a7e;
 }
