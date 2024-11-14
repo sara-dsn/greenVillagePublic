@@ -2,10 +2,10 @@ body {
     background-color: #213131;
 }
 
-.villageGreen{
+.greenVillage{
     text-shadow: #d3ebd9 1px 0 10px;
     color:  #749a7e;
-    font-size:500% ;
+    font-size: 10rem; ;
 }
 
 .searchbar{
@@ -13,6 +13,7 @@ body {
     border-color: #152927;
     font-style: #749a7e;
     color: #749a7e;
+    border-style: dotted;
 }
 input::placeholder{
 color:#749a7e;
@@ -23,4 +24,25 @@ opacity:5;
 }
 .navbar-brand{
     color:#749a7e;
+}
+/* .slide{
+    height:25%;
+    clip-path: polygon(100% 0%, 100% 25%, 0% 25%, 0% 0%);
+} */
+.rubrique{
+    width:70%;
+    height:65%;
+    border-radius: 40%;
+    border-style:solid;
+    border-color: black;
+}
+.cardVente{
+    background:none;
+    border:none;
+}
+
+.titreMeilleureVente{
+    font-size: 5rem;
+    color:#a5ffbe;
+    font-family:monospace;
 }

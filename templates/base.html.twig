@@ -15,9 +15,67 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
-        
-        
-        {% endblock %}
+        <header>
+            <div class="container-fluid d-flex ">
+                <img class="img-fluid d-flex-fill col-2 img-fluid" src="{{ asset('image/logo.png')}}">
+                <div class="flex-column col-8">
+                    <h1 class=" d-flex-fill text-center fw-bold greenVillage">Green Village</h1>
+                    <div class="d-flex justify-content-center">
+                        <form class="input-group w-50 float-sm">
+                            <input label="searchbar" type="text" placeholder="Recherche" class="form-control w-75 searchbar">
+                            <button class="form-control btn searchbar" ><i class="bi bi-search img-fluid"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="d-flex flex-column ">
+                    <div class="p-2 h-75">
+                    </div>
+                    <div class="p-2 col-2 d-flex flex-row ">
+                        <img class="img-fluid mx-2 " src="{{asset('image/icone/coeur.png')}}">
+                        <img class="img-fluid mx-2" src="{{asset('image/icone/caddie.png')}}">
+                        <img class="img-fluid mx-2" src="{{asset('image/icone/tchat.png')}}">
+                        <img class="img-fluid mx-2" src="{{asset('image/icone/profil.png')}}">
+                        <img class="img-fluid mx-2" src="{{asset('image/icone/info.png')}}">
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar">
+                <div class="container-fluid fw-bold">
+                    <a class="navbar-brand" href="#">tambour</a>
+                    <a class="navbar-brand" href="#">djembé</a>
+                    <a class="navbar-brand" href="#">batterie</a>
+                    <a class="navbar-brand" href="#">bongo</a>
+                    <a class="navbar-brand" href="#">clarinette</a>
+                    <a class="navbar-brand" href="#">saxophone</a>
+                    <a class="navbar-brand" href="#">travèrsiere</a>
+                    <a class="navbar-brand" href="#">flûte</a>
+                    <a class="navbar-brand" href="#">piano</a>
+                    <a class="navbar-brand" href="#">guitare</a>
+                    <a class="navbar-brand" href="#">harpe</a>
+                    <a class="navbar-brand" href="#">alto</a>
+                    <a class="navbar-brand" href="#">contrebasse</a>
+                    <a class="navbar-brand" href="#">violoncelle</a>
+                </div>
+            </nav>
+        </header>
+            {% block body %}
+            
+            
+            {% endblock %}
+        <footer>
+            <nav class="navbar">
+                <div class="container-fluid d-flex flex-column ">
+                    <div class="d-flex flex-row justify-content-around fw-bold">
+                        <a class="navbar-brand" href="#">Nous contacter</a>
+                        <a class="navbar-brand" href="#">Qui sommes-nous</a>
+                        <a class="navbar-brand" href="#">Politique de confidentialité</a>
+                        <a class="navbar-brand" href="#">Condition générale d'utilisation</a>
+                    </div>
+                    <div class=" d-flex justify-content-center ">
+                        <img alt="reseaux sociaux" src="{{asset('image/icone/reseauxSociaux.png')}}">
+                    </div>   
+                </div>
+            </nav>
+        </footer>
     </body>
 </html>
