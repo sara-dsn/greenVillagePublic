@@ -2,6 +2,8 @@ body {
     background-color: #213131;
 }
 
+/* HEADER */
+
 .greenVillage{
     text-shadow: #d3ebd9 1px 0 10px;
     color:  #749a7e;
@@ -13,26 +15,37 @@ body {
     border-color: #152927;
     font-style: #749a7e;
     color: #749a7e;
-    border-style: dotted;
 }
 input::placeholder{
 color:#749a7e;
 opacity:5;
 }
+
+/* HEADER ET FOOTER */
+
 .navbar{
     background-color:black;
 }
 .navbar-brand{
     color:#749a7e;
+    font-weight: 900;
+
 }
 /* .slide{
     height:25%;
     clip-path: polygon(100% 0%, 100% 25%, 0% 25%, 0% 0%);
 } */
+
+/* ACCUEIL */
+
+ .textRubrique{
+color:#749a7e ;
+font-weight: 800;
+ }
 .rubrique{
-    width:70%;
-    height:65%;
-    border-radius: 40%;
+    width:78%;
+    height:50%;
+    border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
     border-style:solid;
     border-color: black;
 }
@@ -45,4 +58,10 @@ opacity:5;
     font-size: 5rem;
     color:#a5ffbe;
     font-family:monospace;
+}
+
+.textVert{
+color: #749a7e;
+font-size:x-large;
+font-weight: 700;
 }

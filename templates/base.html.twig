@@ -17,8 +17,8 @@
     <body>
         <header>
             <div class="container-fluid d-flex ">
-                <img class="img-fluid d-flex-fill col-2 img-fluid" src="{{ asset('image/logo.png')}}">
-                <div class="flex-column col-8">
+                <img class="img-fluid d-flex-fill col-md-2 img-fluid" src="{{ asset('image/logo.png')}}">
+                <div class="flex-column col-md-8">
                     <h1 class=" d-flex-fill text-center fw-bold greenVillage">Green Village</h1>
                     <div class="d-flex justify-content-center">
                         <form class="input-group w-50 float-sm">
@@ -30,7 +30,7 @@
                 <div class="d-flex flex-column ">
                     <div class="p-2 h-75">
                     </div>
-                    <div class="p-2 col-2 d-flex flex-row ">
+                    <div class="p-2 col-md-2 d-flex flex-row ">
                         <img class="img-fluid mx-2 " src="{{asset('image/icone/coeur.png')}}">
                         <img class="img-fluid mx-2" src="{{asset('image/icone/caddie.png')}}">
                         <img class="img-fluid mx-2" src="{{asset('image/icone/tchat.png')}}">
@@ -63,16 +63,16 @@
             
             {% endblock %}
         <footer>
-            <nav class="navbar">
+            <nav class="navbar ">
                 <div class="container-fluid d-flex flex-column ">
-                    <div class="d-flex flex-row justify-content-around fw-bold">
-                        <a class="navbar-brand" href="#">Nous contacter</a>
-                        <a class="navbar-brand" href="#">Qui sommes-nous</a>
-                        <a class="navbar-brand" href="#">Politique de confidentialité</a>
-                        <a class="navbar-brand" href="#">Condition générale d'utilisation</a>
+                    <div class="d-flex flex-row justify-content-around ">
+                        <a class="navbar-brand mx-4" href="#"><h2>Nous contacter</h2></a>
+                        <a class="navbar-brand mx-4" href="#"><h2>Qui sommes-nous ?</h2></a>
+                        <a class="navbar-brand mx-4" href="#"><h2>Politique de confidentialité</h2></a>
+                        <a class="navbar-brand mx-4" href="#"><h2>Condition générale d'utilisation</h2></a>
                     </div>
-                    <div class=" d-flex justify-content-center ">
-                        <img alt="reseaux sociaux" src="{{asset('image/icone/reseauxSociaux.png')}}">
+                    <div class=" container-fluid  d-flex justify-content-center col-md-2 ">
+                        <img alt="reseaux sociaux" src="{{asset('image/icone/reseauxSociaux.png')}}" class=" img-fluid">
                     </div>   
                 </div>
             </nav>
