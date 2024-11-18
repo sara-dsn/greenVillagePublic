@@ -1,13 +1,22 @@
 body {
     background-color: #213131;
+    font-family: "Sour Gummy", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+
 }
 
 /* HEADER */
-
+.logo{
+    width:12%
+}
 .greenVillage{
     text-shadow: #d3ebd9 1px 0 10px;
     color:  #749a7e;
-    font-size: 10rem; ;
+    font-size: 10rem; 
+    font-weight: 900;
 }
 
 .searchbar{
@@ -29,7 +38,7 @@ opacity:5;
 .navbar-brand{
     color:#749a7e;
     font-weight: 900;
-
+    font-size:x-large;
 }
 /* .slide{
     height:25%;
@@ -40,7 +49,7 @@ opacity:5;
 
  .textRubrique{
 color:#749a7e ;
-font-weight: 800;
+font-weight: 900;
  }
 .rubrique{
     width:78%;
@@ -56,12 +65,40 @@ font-weight: 800;
 
 .titreMeilleureVente{
     font-size: 5rem;
-    color:#a5ffbe;
-    font-family:monospace;
+    color:#e4e2dd;
 }
 
 .textVert{
 color: #749a7e;
 font-size:x-large;
 font-weight: 700;
+}
+
+/* RUBRIQUE ET SOUS RUBRIQUE  */
+
+.titreBlanc{
+    color: #e4e2dd;
+    font-size:xx-large;
+    font-weight: 900;
+    font-size:4rem;
+
+}
+.textBlanc{
+    color: #e4e2dd;
+    font-size:xx-large;
+    font-weight: 900;
+
+}
+.btnAjoutPanier{
+background-color: #e4e2dd;
+border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
+font-weight: 900;
+font-size:large;
+}
+.carteRubrique{
+background-color: #749a7e;
+}
+.bordureRonde{
+    border-radius: 60px 60px 60px 60px / 60px 60px 60px 60px;
+
 }

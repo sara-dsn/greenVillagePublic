@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TambourController!{% endblock %}
+
+{% block body %}
+
+ <H1 class="text-center titreBlanc my-5">Les Tambours</H1>
+
+<div class="d-flex justify-content-center col-12 mb-5">
+   
+    <div class="card d-flex flex-row col-4 me-3 py-4 carteRubrique bordureRonde">
+        <img alt='photo DW PDP 13"x07" Walnut Snare' class="bordureRonde col-5 ms-4" src="{{asset('image/tambour/tambour3.png')}}">
+        <div class="card-body col-7 d-flex flex-column text-center mt-5">
+            <h5 class="card-title textBlanc ">DW PDP 13"x07" Walnut Snare</h5>
+            <p class="card-text textBlanc">359 €</p>
+            <div class="d-flex flex-row ">
+                <a href="favoris" class="card-link col-3"><img src="{{asset('image/icone/coeurVide.png')}}" alt="favoris" class="col-12"></a>
+                <a href="panier" class="card-link col-9 mt-4 "><input class="me-4 btn btnAjoutPanier " alt="ajouter dans le panier" value="ajouter au panier" ></a>
+            </div>
+        </div>
+    </div>
+     <div class="card d-flex flex-row col-4 me-3 py-4 carteRubrique bordureRonde">
+        <img alt='photo DW PDP 13"x07" Walnut Snare' class="bordureRonde col-5 ms-4" src="{{asset('image/tambour/tambour3.png')}}">
+        <div class="card-body col-7 d-flex flex-column text-center mt-5">
+            <h5 class="card-title textBlanc ">DW PDP 13"x07" Walnut Snare</h5>
+            <p class="card-text textBlanc">359 €</p>
+            <div class="d-flex flex-row ">
+                <a href="favoris" class="card-link col-3"><img src="{{asset('image/icone/coeurVide.png')}}" alt="favoris" class="col-12"></a>
+                <a href="panier" class="card-link col-9 mt-4 "><input class="me-4 btn btnAjoutPanier " alt="ajouter dans le panier" value="ajouter au panier" ></a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
