@@ -8,11 +8,18 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UtilisateurController extends AbstractController
 {
-    #[Route('/utilisateur', name: 'app_utilisateur')]
-    public function index(): Response
+    #[Route('/inscription', name: 'app_inscription')]
+    public function inscription(): Response
     {
-        return $this->render('utilisateur/index.html.twig', [
-            'controller_name' => 'UtilisateurController',
+        return $this->render('utilisateur/inscription.html.twig', [
+            'controller_name' => 'inscriptionController',
+        ]);
+    }
+    #[Route('/connexion', name: 'app_connexion')]
+    public function connexion(): Response
+    {
+        return $this->render('utilisateur/connexion.html.twig', [
+            'controller_name' => 'connexionController',
         ]);
     }
 }

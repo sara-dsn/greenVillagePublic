@@ -24,6 +24,10 @@ body {
     border-color: #152927;
     font-style: #749a7e;
     color: #749a7e;
+    border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
+}
+.tailleSearchBar{
+    width:47%;
 }
 input::placeholder{
 color:#749a7e;
