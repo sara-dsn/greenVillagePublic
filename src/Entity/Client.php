@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -46,6 +48,17 @@ class Client
 
     #[ORM\Column(nullable: true)]
     private ?float $total_acomptes = null;
+
+    /**
+     * @var Collection<int, adresse>
+     */
+    #[ORM\ManyToMany(targetEntity: adresse::class)]
+    private Collection $adresse;
+
+    public function __construct()
+    {
+        $this->adresse = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -180,6 +193,30 @@ class Client
     public function setTotalAcomptes(?float $total_acomptes): static
     {
         $this->total_acomptes = $total_acomptes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, adresse>
+     */
+    public function getAdresse(): Collection
+    {
+        return $this->adresse;
+    }
+
+    public function addAdresse(adresse $adresse): static
+    {
+        if (!$this->adresse->contains($adresse)) {
+            $this->adresse->add($adresse);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresse(adresse $adresse): static
+    {
+        $this->adresse->removeElement($adresse);
 
         return $this;
     }
