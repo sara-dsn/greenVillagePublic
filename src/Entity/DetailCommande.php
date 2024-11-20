@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\DetailRepository;
+use App\Repository\DetailCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DetailRepository::class)]
-class Detail
+#[ORM\Entity(repositoryClass: DetailCommandeRepository::class)]
+class DetailCommande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,7 +23,7 @@ class Detail
     #[ORM\JoinColumn(nullable: false)]
     private ?instrument $instrument = null;
 
-    #[ORM\ManyToOne(inversedBy: 'details')]
+    #[ORM\ManyToOne(inversedBy: 'detailCommandes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?commande $commande = null;
 

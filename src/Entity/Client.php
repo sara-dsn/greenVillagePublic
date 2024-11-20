@@ -137,12 +137,12 @@ class Client
         return $this;
     }
 
-    public function getMotDePassTemporaire(): ?string
+    public function getMotDePasseTemporaire(): ?string
     {
         return $this->mot_de_pass_temporaire;
     }
 
-    public function setMotDePassTemporaire(?string $mot_de_pass_temporaire): static
+    public function setMotDePasseTemporaire(?string $mot_de_pass_temporaire): static
     {
         $this->mot_de_pass_temporaire = $mot_de_pass_temporaire;
 

@@ -61,13 +61,13 @@ class Commande
     /**
      * @var Collection<int, Detail>
      */
-    #[ORM\OneToMany(targetEntity: Detail::class, mappedBy: 'commande', orphanRemoval: true)]
-    private Collection $details;
+    #[ORM\OneToMany(targetEntity: DetailCommande::class, mappedBy: 'commande', orphanRemoval: true)]
+    private Collection $detailCommandes;
 
     public function __construct()
     {
         $this->livraison = new ArrayCollection();
-        $this->details = new ArrayCollection();
+        $this->detailCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,22 +254,22 @@ class Commande
      */
     public function getDetails(): Collection
     {
-        return $this->details;
+        return $this->detailCommandes;
     }
 
-    public function addDetail(Detail $detail): static
+    public function addDetail(DetailCommande $detail): static
     {
-        if (!$this->details->contains($detail)) {
-            $this->details->add($detail);
+        if (!$this->detailCommandes->contains($detail)) {
+            $this->detailCommandes->add($detail);
             $detail->setCommande($this);
         }
 
         return $this;
     }
 
-    public function removeDetail(Detail $detail): static
+    public function removeDetail(DetailCommande $detail): static
     {
-        if ($this->details->removeElement($detail)) {
+        if ($this->detailCommandes->removeElement($detail)) {
             // set the owning side to null (unless already changed)
             if ($detail->getCommande() === $this) {
                 $detail->setCommande(null);
