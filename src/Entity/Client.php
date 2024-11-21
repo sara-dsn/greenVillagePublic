@@ -28,14 +28,14 @@ class Client
     #[ORM\Column(length: 255)]
     private ?string $mail = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column]
     private ?int $numero_telephone = null;
 
     #[ORM\Column(length: 50)]
     private ?string $mot_de_passe = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mot_de_pass_temporaire = null;
+    private ?string $mot_de_passe_temporaire = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $derniere_connexion = null;
@@ -52,7 +52,7 @@ class Client
     /**
      * @var Collection<int, adresse>
      */
-    #[ORM\ManyToMany(targetEntity: adresse::class)]
+    #[ORM\OneToOne(targetEntity: adresse::class)]
     private Collection $adresse;
 
     public function __construct()
@@ -139,12 +139,12 @@ class Client
 
     public function getMotDePasseTemporaire(): ?string
     {
-        return $this->mot_de_pass_temporaire;
+        return $this->mot_de_passe_temporaire;
     }
 
-    public function setMotDePasseTemporaire(?string $mot_de_pass_temporaire): static
+    public function setMotDePasseTemporaire(?string $mot_de_passe_temporaire): static
     {
-        $this->mot_de_pass_temporaire = $mot_de_pass_temporaire;
+        $this->mot_de_passe_temporaire = $mot_de_passe_temporaire;
 
         return $this;
     }

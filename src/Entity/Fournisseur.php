@@ -25,7 +25,7 @@ class Fournisseur
     #[ORM\Column]
     private ?bool $constructeur = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column]
     private ?int $numero_telephone = null;
 
     #[ORM\Column(length: 255)]
