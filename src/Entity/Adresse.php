@@ -34,6 +34,14 @@ class Adresse
     #[ORM\Column]
     private ?bool $actif = null;
 
+    #[ORM\OneToOne(inversedBy: 'adresse', cascade: ['persist', 'remove'])]
+    private ?client $personne = null;
+
+    #[ORM\OneToOne(inversedBy: 'adresse', cascade: ['persist', 'remove'])]
+    private ?fournisseur $fournisseur = null;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,4 +130,30 @@ class Adresse
 
         return $this;
     }
+
+    public function getPersonne(): ?client
+    {
+        return $this->personne;
+    }
+
+    public function setPersonne(?client $personne): static
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
+
+    public function getFournisseur(): ?fournisseur
+    {
+        return $this->fournisseur;
+    }
+
+    public function setFournisseur(?fournisseur $fournisseur): static
+    {
+        $this->fournisseur = $fournisseur;
+
+        return $this;
+    }
+
+
 }

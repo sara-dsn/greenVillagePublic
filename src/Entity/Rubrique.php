@@ -21,14 +21,15 @@ class Rubrique
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrique')]
-    private ?self $rubrique = null;
 
     /**
      * @var Collection<int, Instrument>
      */
     #[ORM\OneToMany(targetEntity: Instrument::class, mappedBy: 'rubrique', orphanRemoval: true)]
     private Collection $instruments;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
+    private ?self $parent = null;
 
     public function __construct()
     {
@@ -64,17 +65,6 @@ class Rubrique
         return $this;
     }
 
-    public function getRubrique(): ?self
-    {
-        return $this->rubrique;
-    }
-
-    public function setRubrique(?self $rubrique): static
-    {
-        $this->rubrique = $rubrique;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Instrument>
@@ -102,6 +92,18 @@ class Rubrique
                 $instrument->setRubrique(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): static
+    {
+        $this->parent = $parent;
 
         return $this;
     }

@@ -43,9 +43,12 @@ class Fournisseur
     #[ORM\OneToMany(targetEntity: Instrument::class, mappedBy: 'reference_fournisseur')]
     private Collection $instruments;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?adresse $adresse = null;
+    #[ORM\OneToOne(mappedBy: 'fournisseur', cascade: ['persist', 'remove'])]
+    private ?Adresse $adresse = null;
+
+
+
+
 
     public function __construct()
     {
@@ -171,15 +174,29 @@ class Fournisseur
         return $this;
     }
 
-    public function getAdresse(): ?adresse
+    public function getAdresse(): ?Adresse
     {
         return $this->adresse;
     }
 
-    public function setAdresse(adresse $adresse): static
+    public function setAdresse(?Adresse $adresse): static
     {
+        // unset the owning side of the relation if necessary
+        if ($adresse === null && $this->adresse !== null) {
+            $this->adresse->setFournisseur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($adresse !== null && $adresse->getFournisseur() !== $this) {
+            $adresse->setFournisseur($this);
+        }
+
         $this->adresse = $adresse;
 
         return $this;
     }
+
+
+
+
 }

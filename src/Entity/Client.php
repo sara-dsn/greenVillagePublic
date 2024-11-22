@@ -49,16 +49,10 @@ class Client
     #[ORM\Column(nullable: true)]
     private ?float $total_acomptes = null;
 
-    /**
-     * @var Collection<int, adresse>
-     */
-    #[ORM\OneToOne(targetEntity: adresse::class)]
-    private Collection $adresse;
+    #[ORM\OneToOne(mappedBy: 'personne', cascade: ['persist', 'remove'])]
+    private ?Adresse $adresse = null;
 
-    public function __construct()
-    {
-        $this->adresse = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
@@ -197,27 +191,29 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection<int, adresse>
-     */
-    public function getAdresse(): Collection
+    public function getAdresse(): ?Adresse
     {
         return $this->adresse;
     }
 
-    public function addAdresse(adresse $adresse): static
+    public function setAdresse(?Adresse $adresse): static
     {
-        if (!$this->adresse->contains($adresse)) {
-            $this->adresse->add($adresse);
+        // unset the owning side of the relation if necessary
+        if ($adresse === null && $this->adresse !== null) {
+            $this->adresse->setPersonne(null);
         }
 
+        // set the owning side of the relation if necessary
+        if ($adresse !== null && $adresse->getPersonne() !== $this) {
+            $adresse->setPersonne($this);
+        }
+
+        $this->adresse = $adresse;
+
         return $this;
     }
 
-    public function removeAdresse(adresse $adresse): static
-    {
-        $this->adresse->removeElement($adresse);
 
-        return $this;
-    }
+
+
 }
