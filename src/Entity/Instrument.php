@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Couleur;
+use App\Entity\Rubrique;
+use App\Entity\Fournisseur;
+use App\Entity\TVA;
 use App\Repository\InstrumentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
