@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Couleur;
-use App\Entity\Fournisseur;
-use App\Entity\Tva;
-use App\Entity\Rubrique;
+
 use App\Entity\Instrument;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +12,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function accueil(EntityManagerInterface $entityManager): Response
     {
-        // $couleurs=$entityManager->getRepository(Couleur::class)->findAll();
-        // $fournisseur=$entityManager->getRepository(Fournisseur::class);
-        // $tva=$entityManager->getRepository(Tva::class);
-        // $rubrique=$entityManager->getRepository(Rubrique::class);
+     
+        $instruments=$entityManager->getRepository(Instrument::class)->findBy([],null,3);
+        return $this->render('accueil/accueil.html.twig', [
+           'instruments' =>$instruments,
+        ]);
+    }
+    #[Route('/cat', name: 'app_sousRubrique')]
+    public function SousRubrique(EntityManagerInterface $entityManager): Response
+    {
+     
         $instruments=$entityManager->getRepository(Instrument::class)->findBy([],null,3);
         return $this->render('accueil/accueil.html.twig', [
            'instruments' =>$instruments,
