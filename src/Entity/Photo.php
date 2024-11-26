@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Instrument;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,7 +21,7 @@ class Photo
     private ?string $avec_fond = null;
 
     #[ORM\OneToOne(inversedBy: 'photo', cascade: ['persist', 'remove'])]
-    private ?instrument $instrument = null;
+    private ?Instrument $instrument = null;
 
     public function getId(): ?int
     {
