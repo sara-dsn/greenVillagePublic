@@ -21,7 +21,7 @@ class AccueilController extends AbstractController
         // $fournisseur=$entityManager->getRepository(Fournisseur::class);
         // $tva=$entityManager->getRepository(Tva::class);
         // $rubrique=$entityManager->getRepository(Rubrique::class);
-        $instruments=$entityManager->getRepository(Instrument::class)->findAll();
+        $instruments=$entityManager->getRepository(Instrument::class)->findBy([],null,3);
         return $this->render('accueil/accueil.html.twig', [
            'instruments' =>$instruments,
         ]);

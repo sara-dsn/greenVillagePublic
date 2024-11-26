@@ -40,62 +40,28 @@
         <img alt="instrument à vent" class="img-fluid rubrique" src="{{asset('image/rubrique/percussion.jpg')}}">
     </div>
 </div>
-{% for instrument in instruments %}
-<img alt="{{instrument.libelle}}" src="instrument/{{ instrument.photo }}" class="img-fluid ">
-
-{% endfor %}
-{# {% for couleur in couleurs %}
-<p>{{ couleur.nomCouleur }}</p>
-{% endfor %} #}
 
 <h2 class="text-center titreMeilleureVente mb-5"> Découvrez nos meilleurs ventes</h2>
 <div class="d-flex flex-row justify-content-center  ">
-    <div class="card cardVente mb-3 mx-2 col-md-3 " >
-        <div class="card-body h-100 ">
-            <div class="d-flex flex-row h-75">
-                <img alt="top 1" class="img-fluid col-md-6 h-50 w-25" src="{{asset('image/icone/top1.png')}}">
-                <img class="img-fluid col-md-6 w-50 " alt="Gewa allegro violon 4/4" src="{{asset('image/instrument/1violon.png')}}">
-            </div>
-            <div class="h-25 ">
-                <h5 class="card-title text-center textVert">Gewa Allegro Violon 4/4 </h5>
-                <div class="d-flex flex-row-reverse mr-4">
-                    <p class="card-text mx-5 textVert">à 319€</p>
+    {% set i=1 %}
+    {% for instrument in instruments %}
+        <div class="card cardVente mb-3 mx-2 col-md-3 " >
+            <div class="card-body h-100 ">
+                <div class="d-flex flex-row h-75">
+                    <img alt="top {{i}}" class="img-fluid col-md-6 h-50 w-25" src="top/top{{i}}.png">
+                    <img class="img-fluid col-md-6 w-50 " alt="{{ instrument.libelle }}" src="instrument/{{ instrument.photo }}">
                 </div>
-                {# <a href="#" class="btn "><img alt="ajouter au panier" class="img-fluid" src="{{asset('image/icone/caddie.png')}}"></a> #}
+                <div class="h-25 ">
+                    <h5 class="card-title text-center textVert">{{ instrument.libelle }}</h5>
+                    <div class="d-flex flex-row-reverse mr-4">
+                        <p class="card-text mx-5 textVert">à {{ instrument.prixHt }}€</p>
+                    </div>
+                    {# <a href="#" class="btn "><img alt="ajouter au panier" class="img-fluid" src="{{asset('image/icone/caddie.png')}}"></a> #}
+                </div>
             </div>
         </div>
-    </div>
-       <div class="card cardVente mb-3 mx-2 col-md-3 " >
-        <div class="card-body h-100 ">
-            <div class="d-flex flex-row h-75">
-                <img alt="top 2" class="img-fluid col-md-6 h-50 w-25" src="{{asset('image/icone/top2.png')}}">
-                <img class="img-fluid col-md-6 w-50 " alt="BetterSax Alto Saxophone" src="{{asset('image/instrument/1saxophone.png')}}">
-            </div>
-            <div class="h-25 ">
-                <h5 class="card-title text-center textVert">BetterSax Alto Saxophone</h5>
-                <div class="d-flex flex-row-reverse mr-4">
-                    <p class="card-text mx-5 textVert">à 877€</p>
-                </div>
-                {# <a href="#" class="btn "><img alt="ajouter au panier" class="img-fluid" src="{{asset('image/icone/caddie.png')}}"></a> #}
-            </div>
-        </div>
-    </div>
-       <div class="card cardVente mb-3 mx-2 col-md-3 " >
-        <div class="card-body h-100 ">
-            <div class="d-flex flex-row h-75">
-                <img alt="top 3" class="img-fluid col-md-6 h-50 w-25" src="{{asset('image/icone/top3.png')}}">
-                <img class="img-fluid col-md-6 w-50 " alt="Yamaha GB1 Black Polished" src="{{asset('image/instrument/2piano.png')}}">
-            </div>
-            <div class="h-25 ">
-                <h5 class="card-title text-center textVert">Yamaha GB1 Black Polished</h5>
-                <div class="d-flex flex-row-reverse mr-4 ">
-                    <p class="card-text mx-5 textVert">à 11 990€</p>
-                </div>
-                {# <a href="#" class="btn "><img alt="ajouter au panier" class="img-fluid" src="{{asset('image/icone/caddie.png')}}"></a> #}
-            </div>
-        </div>
-    </div>
- 
+    {% set i=i+1 %}
+    {% endfor %}
 </div>
 
 {% endblock %}

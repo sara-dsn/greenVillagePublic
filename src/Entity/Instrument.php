@@ -7,6 +7,8 @@ use App\Entity\Rubrique;
 use App\Entity\Fournisseur;
 use App\Entity\TVA;
 use App\Repository\InstrumentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,11 +29,8 @@ class Instrument
     #[ORM\Column]
     private ?int $stock_unite = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $photo = null;
-
     #[ORM\Column]
-    private ?float $prix_hors_taxe = null;
+    private ?float $prix_ht = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -48,6 +47,17 @@ class Instrument
     #[ORM\ManyToOne(inversedBy: 'instruments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?rubrique $rubrique = null;
+
+    /**
+     * @var Collection<int, Photo>
+     */
+    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'instrument')]
+    private Collection $photos;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,26 +100,14 @@ class Instrument
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPrixHt(): ?float
     {
-        return $this->photo;
+        return $this->prix_ht;
     }
 
-    public function setPhoto(string $photo): static
+    public function setPrixHt(float $prix_ht): static
     {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getPrixHorsTaxe(): ?float
-    {
-        return $this->prix_hors_taxe;
-    }
-
-    public function setPrixHorsTaxe(float $prix_hors_taxe): static
-    {
-        $this->prix_hors_taxe = $prix_hors_taxe;
+        $this->prix_ht = $prix_ht;
 
         return $this;
     }
@@ -158,6 +156,36 @@ class Instrument
     public function setRubrique(?rubrique $rubrique): static
     {
         $this->rubrique = $rubrique;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): static
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+            $photo->setInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): static
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getInstrument() === $this) {
+                $photo->setInstrument(null);
+            }
+        }
 
         return $this;
     }
