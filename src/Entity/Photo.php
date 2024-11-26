@@ -19,7 +19,7 @@ class Photo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avec_fond = null;
 
-    #[ORM\ManyToOne(inversedBy: 'photos')]
+    #[ORM\OneToOne(inversedBy: 'photo', cascade: ['persist', 'remove'])]
     private ?instrument $instrument = null;
 
     public function getId(): ?int
@@ -62,4 +62,5 @@ class Photo
 
         return $this;
     }
+
 }

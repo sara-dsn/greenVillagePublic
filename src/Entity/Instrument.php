@@ -48,16 +48,10 @@ class Instrument
     #[ORM\JoinColumn(nullable: false)]
     private ?rubrique $rubrique = null;
 
-    /**
-     * @var Collection<int, Photo>
-     */
-    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'instrument')]
-    private Collection $photos;
+    #[ORM\OneToOne(mappedBy: 'instrument', cascade: ['persist', 'remove'])]
+    private ?Photo $photo = null;
 
-    public function __construct()
-    {
-        $this->photos = new ArrayCollection();
-    }
+ 
 
     public function getId(): ?int
     {
@@ -160,33 +154,27 @@ class Instrument
         return $this;
     }
 
-    /**
-     * @return Collection<int, Photo>
-     */
-    public function getPhotos(): Collection
+    public function getPhoto(): ?Photo
     {
-        return $this->photos;
+        return $this->photo;
     }
 
-    public function addPhoto(Photo $photo): static
+    public function setPhoto(?Photo $photo): static
     {
-        if (!$this->photos->contains($photo)) {
-            $this->photos->add($photo);
+        // unset the owning side of the relation if necessary
+        if ($photo === null && $this->photo !== null) {
+            $this->photo->setInstrument(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($photo !== null && $photo->getInstrument() !== $this) {
             $photo->setInstrument($this);
         }
 
-        return $this;
-    }
-
-    public function removePhoto(Photo $photo): static
-    {
-        if ($this->photos->removeElement($photo)) {
-            // set the owning side to null (unless already changed)
-            if ($photo->getInstrument() === $this) {
-                $photo->setInstrument(null);
-            }
-        }
+        $this->photo = $photo;
 
         return $this;
     }
+
+
 }
