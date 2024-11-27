@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Rubrique;
 use App\Entity\Instrument;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,19 +15,20 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function accueil(EntityManagerInterface $entityManager): Response
     {
-     
+        $rubriques=$entityManager->getRepository(Rubrique::class)->findAll();
         $instruments=$entityManager->getRepository(Instrument::class)->findBy([],null,3);
-        return $this->render('accueil/accueil.html.twig', [
+        return $this->render('catalogue/accueil.html.twig', [
            'instruments' =>$instruments,
+           'rubriques'=>$rubriques
         ]);
     }
-    #[Route('/cat', name: 'app_sousRubrique')]
-    public function SousRubrique(EntityManagerInterface $entityManager): Response
+    #[Route('/rubrique', name: 'app_rubrique')]
+    public function Rubrique(EntityManagerInterface $entityManager): Response
     {
      
-        $instruments=$entityManager->getRepository(Instrument::class)->findBy([],null,3);
-        return $this->render('accueil/accueil.html.twig', [
-           'instruments' =>$instruments,
+        $rubriques=$entityManager->getRepository(Rubrique::class)->findAll();
+        return $this->render('catalogue/rubrique.html.twig', [
+           'rubriques' =>$rubriques,
         ]);
     }
 }
