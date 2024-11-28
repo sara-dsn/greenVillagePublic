@@ -62,12 +62,12 @@ font-weight: 900;
     border-style:solid;
     border-color: black;
 }
-.cardVente{
+.cardInvisible{
     background:none;
     border:none;
 }
 
-.titreMeilleureVente{
+.titre{
     font-size: 5rem;
     color:#e4e2dd;
 }

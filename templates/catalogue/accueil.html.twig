@@ -26,22 +26,20 @@
   </button>  
 </div>
 <div class="d-flex flex-row  mt-2">
-  {% for rubrique in rubriques %}
-    <div class="d-flex flex-column col-md-4 align-items-center " >
-    {# <div class="d-flex flex-column col-md-4 align-items-center btn" href="rubrique/{{ rubrique.id }}" > #}
-      <a class="btn btn-secondary" type="submit" href="rubrique" >
-        <h2 class="my-5 textRubrique">{{ rubrique.libelle }}</h2>
-        <img alt="{{ rubrique.libelle }}" class="img-fluid rubrique" src="rubrique/{{ rubrique.photo }}">
-      </a>
-    </div>
+  {% for rubrique in rubriques %}    
+    <a class="btn d-flex flex-column col-md-4 align-items-center " type="submit" href="rubrique" >
+      {# <div class="d-flex flex-column col-md-4 align-items-center btn" href="rubrique/{{ rubrique.id }}" > #}
+      <h2 class="my-5 textRubrique">{{ rubrique.libelle }}</h2>
+      <img alt="{{ rubrique.libelle }}" class="img-fluid rubrique" src="rubrique/{{ rubrique.photo }}">
+    </a>
   {% endfor %}
 </div>
 
-<h2 class="text-center titreMeilleureVente mb-5"> Découvrez nos meilleures ventes</h2>
+<h2 class="text-center titre mb-5"> Découvrez nos meilleures ventes</h2>
 <div class="d-flex flex-row justify-content-center  ">
     {% set i=1 %}
     {% for instrument in instruments %}
-        <div class="card cardVente mb-3 mx-2 col-md-3 " >
+        <div class="card cardInvisible mb-3 mx-2 col-md-3 " >
             <div class="card-body h-100 ">
                 <div class="d-flex flex-row h-75">
                     <img alt="top {{i}}" class="img-fluid col-md-6 h-50 w-25" src="top/top{{i}}.png">
