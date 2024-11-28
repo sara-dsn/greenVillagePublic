@@ -29,6 +29,7 @@ body {
 .tailleSearchBar{
     width:47%;
 }
+
 input::placeholder{
 color:#749a7e;
 opacity:5;
@@ -51,9 +52,14 @@ opacity:5;
 
 /* ACCUEIL */
 
- .textRubrique{
+ .titreRubrique{
 color:#749a7e ;
 font-weight: 900;
+ }
+ .titreSousRubrique{
+    color:#749a7e;
+    font-weight: 900;
+    font-size:4rem;
  }
 .rubrique{
     width:78%;

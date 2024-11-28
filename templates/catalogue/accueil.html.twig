@@ -27,10 +27,10 @@
 </div>
 <div class="d-flex flex-row  mt-2">
   {% for rubrique in rubriques %}    
-    <a class="btn d-flex flex-column col-md-4 align-items-center " type="submit" href="rubrique" >
+    <a class="btn d-flex flex-column col-md-4 align-items-center " type="submit" href="rubrique/{{rubrique.id}}" >
       {# <div class="d-flex flex-column col-md-4 align-items-center btn" href="rubrique/{{ rubrique.id }}" > #}
-      <h2 class="my-5 textRubrique">{{ rubrique.libelle }}</h2>
-      <img alt="{{ rubrique.libelle }}" class="img-fluid rubrique" src="rubrique/{{ rubrique.photo }}">
+      <h2 class="my-5 titreRubrique">{{ rubrique.libelle }}</h2>
+      <img alt="{{ rubrique.libelle }}" class="img-fluid rubrique" src="{{asset('rubrique/'~ rubrique.photo )}}">
     </a>
   {% endfor %}
 </div>
@@ -42,8 +42,8 @@
         <div class="card cardInvisible mb-3 mx-2 col-md-3 " >
             <div class="card-body h-100 ">
                 <div class="d-flex flex-row h-75">
-                    <img alt="top {{i}}" class="img-fluid col-md-6 h-50 w-25" src="top/top{{i}}.png">
-                    <img class="img-fluid col-md-6 w-50 " alt="{{ instrument.libelle }}" src="instrument/{{ instrument.photo.sansFond }}">
+                    <img alt="top {{i}}" class="img-fluid col-md-6 h-50 w-25" src="{{asset('top/top'~ i ~'.png')}}">
+                    <img class="img-fluid col-md-6 w-50 " alt="{{ instrument.libelle }}" src="{{asset('instrument/'~ instrument.photo.sansFond) }}">
                 </div>
                 <div class="h-25 ">
                     <h5 class="card-title text-center textVert">{{ instrument.libelle }}</h5>

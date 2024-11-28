@@ -22,13 +22,16 @@ class AccueilController extends AbstractController
            'rubriques'=>$rubriques
         ]);
     }
-    #[Route('/rubrique', name: 'app_rubrique')]
-    public function Rubrique(EntityManagerInterface $entityManager): Response
+    #[Route('/rubrique/{id}', name: 'app_rubrique')]
+    public function Rubrique(EntityManagerInterface $entityManager, int $id): Response
     {
-     
-        $rubriques=$entityManager->getRepository(Rubrique::class)->findAll();
+        $test=$entityManager->getRepository(Rubrique::class)->findBy(['parent'=> NULL]);
+        $rubrique=$entityManager->getRepository(Rubrique::class)->findBy(['id'=> $id]);
+        $sousRubriques=$entityManager->getRepository(Rubrique::class)->findBy(['parent'=> $id]);
         return $this->render('catalogue/rubrique.html.twig', [
-           'rubriques' =>$rubriques,
+           'rubrique' =>$rubrique,
+           'sousRubriques'=>$sousRubriques,
+        //    'tests'=>$test
         ]);
     }
 }
