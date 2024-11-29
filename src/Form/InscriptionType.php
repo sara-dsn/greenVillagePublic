@@ -12,26 +12,24 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('siret')
             ->add('nom')
             ->add('prenom')
             ->add('mail')
             ->add('numero_telephone')
+            ->add('adresse')
+            ->add('ville')
+            ->add('code postal')
             ->add('mot_de_passe')
-            ->add('mot_de_pass_temporaire')
-            ->add('derniere_connexion', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('coeff_vente')
-            ->add('reference_client')
-            ->add('total_acomptes')
+            ->add('mot_de_passe_confirmation')
+            ->add('politiqueDeConfidentialité')
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Client::class,
+            // 'data_class' => Client::class,
         ]);
     }
 }

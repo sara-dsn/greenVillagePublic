@@ -23,15 +23,27 @@ class AccueilController extends AbstractController
         ]);
     }
     #[Route('/rubrique/{id}', name: 'app_rubrique')]
-    public function Rubrique(EntityManagerInterface $entityManager, int $id): Response
+    public function sousRubrique(EntityManagerInterface $entityManager, int $id): Response
     {
-        $test=$entityManager->getRepository(Rubrique::class)->findBy(['parent'=> NULL]);
+        // $test=$entityManager->getRepository(Rubrique::class)->findBy(['parent'=> NULL]);
         $rubrique=$entityManager->getRepository(Rubrique::class)->findBy(['id'=> $id]);
         $sousRubriques=$entityManager->getRepository(Rubrique::class)->findBy(['parent'=> $id]);
-        return $this->render('catalogue/rubrique.html.twig', [
+        return $this->render('catalogue/sousRubrique.html.twig', [
            'rubrique' =>$rubrique,
            'sousRubriques'=>$sousRubriques,
         //    'tests'=>$test
         ]);
     }
+    #[Route('instrument/{id}', name: 'app_instrument')]
+    public function instrument(EntityManagerInterface $entityManager, $id): Response
+    {
+        $rubrique=$entityManager->getRepository(Rubrique::class)->findBy(['id'=>$id]);
+        $instruments=$entityManager->getRepository(Instrument::class)->findBy(['rubrique'=> $id ]);
+        return $this->render('catalogue/instrument.html.twig', [
+           'instruments' =>$instruments,
+           'rubrique'=>$rubrique
+        ]);
+    }
+
+   
 }

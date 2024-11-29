@@ -30,10 +30,11 @@ body {
     width:47%;
 }
 
-input::placeholder{
+/* input::placeholder{
 color:#749a7e;
 opacity:5;
-}
+} */
+
 
 /* HEADER ET FOOTER */
 
@@ -44,6 +45,12 @@ opacity:5;
     color:#749a7e;
     font-weight: 900;
     font-size:x-large;
+}
+/*hover: effet quand on passe la sourie par dessus */
+.navbar-brand:hover{
+    color:#749a7e;
+    transition: transform .1s;
+    font-size: xx-large;
 }
 /* .slide{
     height:25%;
@@ -112,3 +119,34 @@ background-color: #749a7e;
     border-radius: 60px 60px 60px 60px / 60px 60px 60px 60px;
 
 }
+.imgSousRubrique{
+    height: 30rem;
+}
+.cardInstrument{
+    border-radius: 60px 60px 60px 60px / 60px 60px 60px 60px ;
+    background-color:#749a7e;
+}
+/* INSTRUMENT */
+
+.bntAjoutPanier{
+    background-color:#e4e2dd;
+    color: black;
+}
+/* ca ne fonctionne que quand je mets la fleche sur le bouton, sinon le texte est gris */
+.btnAjoutPanier:hover{
+    color: black;
+}
+.titreInstrument{
+    color: #e4e2dd;
+    font-size: x-large;
+    font-weight:900;
+}
+.prixInstrument{
+    color: #e4e2dd;
+    font-size: xx-large;
+    font-weight:900;
+}
+/* on change la proprieté bootstrap pour les btn */
+/* :root{
+    --bs-btn-color:black;
+} */
