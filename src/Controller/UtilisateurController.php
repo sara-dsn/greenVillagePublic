@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Client;
 use App\Entity\Adresse;
 use App\Form\ConnexionType;
 use App\Form\InscriptionType;
-use DateTime;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
+use function Symfony\Component\Clock\now;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use function Symfony\Component\Clock\now;
 
 class UtilisateurController extends AbstractController
 {
@@ -30,7 +33,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, EntityManagerInterface $manager): Response
+    public function inscription(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
     {
         $formI=$this->createForm(InscriptionType::class);
 
@@ -67,8 +70,40 @@ class UtilisateurController extends AbstractController
             $manager->persist($client);
             $manager->persist($adresse);
             $manager->flush();
+            
+        //     $mail = (new TemplatedEmail())
+        //     ->from('greenVillage@example.com')
+        //     ->to(new Address($data['mail']))
+        //     ->subject('Confirmer votre compte GreenVillage')
 
-            return $this->render('utilisateur/test.html.twig',[
+        //     // path of the Twig template to render
+        //     ->htmlTemplate('mail/mail.html.twig')
+
+        //     // change locale used in the template, e.g. to match user's locale
+        //     ->locale('de')
+
+        //     // pass variables (name => value) to the template
+        //     ->context([
+        //         'expiration_date' => new \DateTime('+7 days'),
+        //         'username' => $data['mail'],
+
+        //     ])
+        // ;
+        // $mailer->send($mail);
+            $mail=(new Email())
+            ->from('GreenVillage@gmail.com')
+            ->to($data['mail'])
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation de votre compte Green Village')
+            ->text("Veuillez confirmer votre compte en cliquant sur le lien ci-dessous s'il vous plaît")
+            // ->html('<p>See Twig integration for better HTML integration!</p>');
+            ;
+            $mailer->send($mail);
+
+            return $this->redirectToRoute('utilisateur/test.html.twig',[
                 
             ]);
         }
