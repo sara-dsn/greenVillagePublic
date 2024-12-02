@@ -41,7 +41,8 @@ class UtilisateurController extends AbstractController
         if($formI->isSubmitted() && $formI->isValid()){
             $formI->handleRequest($request);
             $data=$formI->getData();
-            // $presence=$entityManager->getRepository(Client::class)->findBy['mail'=>$data['mail']];
+            $leMail=$data['mail'];
+            $presence=$entityManager->getRepository(Client::class)->findBy['mail'];
 
 
             $client= new Client();
