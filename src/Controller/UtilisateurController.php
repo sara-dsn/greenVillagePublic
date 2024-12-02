@@ -33,14 +33,16 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
+    public function inscription(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
-        $formI=$this->createForm(InscriptionType::class);
+        $formI=$this->createForm(InscriptionType::class);  
+        
 
-        $formI->handleRequest($request);
         if($formI->isSubmitted() && $formI->isValid()){
-
+            $formI->handleRequest($request);
             $data=$formI->getData();
+            // $presence=$entityManager->getRepository(Client::class)->findBy['mail'=>$data['mail']];
+
 
             $client= new Client();
             $adresse= new Adresse();
@@ -71,37 +73,38 @@ class UtilisateurController extends AbstractController
             $manager->persist($adresse);
             $manager->flush();
             
-        //     $mail = (new TemplatedEmail())
-        //     ->from('greenVillage@example.com')
-        //     ->to(new Address($data['mail']))
-        //     ->subject('Confirmer votre compte GreenVillage')
+            $mail = (new TemplatedEmail())
+            ->from('greenVillage@example.com')
+            ->to(new Address($data['mail']))
+            ->subject('Confirmer votre compte GreenVillage')
 
-        //     // path of the Twig template to render
-        //     ->htmlTemplate('mail/mail.html.twig')
+            // path of the Twig template to render
+            ->htmlTemplate('mail/mail.html.twig')
 
-        //     // change locale used in the template, e.g. to match user's locale
-        //     ->locale('de')
+            // change locale used in the template, e.g. to match user's locale
+            ->locale('de')
 
-        //     // pass variables (name => value) to the template
-        //     ->context([
-        //         'expiration_date' => new \DateTime('+7 days'),
-        //         'username' => $data['mail'],
+            // pass variables (name => value) to the template
+            ->context([
+                'expiration_date' => new \DateTime('+7 days'),
+                'username' => $data['mail'],
+                'name'=>$data['prenom'],
 
-        //     ])
-        // ;
-        // $mailer->send($mail);
-            $mail=(new Email())
-            ->from('GreenVillage@gmail.com')
-            ->to($data['mail'])
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Confirmation de votre compte Green Village')
-            ->text("Veuillez confirmer votre compte en cliquant sur le lien ci-dessous s'il vous plaît")
-            // ->html('<p>See Twig integration for better HTML integration!</p>');
-            ;
-            $mailer->send($mail);
+            ])
+        ;
+        $mailer->send($mail);
+            // $mail=(new Email())
+            // ->from('GreenVillage@gmail.com')
+            // ->to($data['mail'])
+            // //->cc('cc@example.com')
+            // //->bcc('bcc@example.com')
+            // //->replyTo('fabien@example.com')
+            // //->priority(Email::PRIORITY_HIGH)
+            // ->subject('Confirmation de votre compte Green Village')
+            // ->text("Veuillez confirmer votre compte en cliquant sur le lien ci-dessous s'il vous plaît")
+            // // ->html('<p>See Twig integration for better HTML integration!</p>');
+            // ;
+            // $mailer->send($mail);
 
             return $this->redirectToRoute('utilisateur/test.html.twig',[
                 
