@@ -31,7 +31,7 @@ class Client
     #[ORM\Column]
     private ?int $numero_telephone = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $mot_de_passe = null;
 
     #[ORM\Column(length: 255, nullable: true)]

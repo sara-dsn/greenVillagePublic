@@ -1,7 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateurController!{% endblock %}
-
 {% block body %}
 
+    <h1 class="text-center titre my-4"> Inscription<h1>
+
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="col-6">
+            {{ form_start(formI)}}
+            {{form_errors(formI)}}
+                {{form_row(formI.nom)}}
+                {{form_row(formI.prenom)}}
+                {{form_row(formI.mail)}}
+                {{form_row(formI.numeroTelephone)}}
+                {{form_row(formI.adresse)}}
+                {{form_row(formI.ville)}}
+                {{form_row(formI.cp)}}
+                {{form_row(formI.mdp)}}
+                {{form_row(formI.mdp_confirmation)}}
+                {# {{form_errors(formI.mdp_confirmation,{'attr':{'class':'messageErreur'}})}} #}
+
+                <div class="d-flex align-item">
+                    {{form_row(formI.radio)}}
+                    <a href="" class="lienPdC" type="submit">J'accepte la politique de confidentialité</a>
+                </div>
+                <div class="d-flex justify-content-end">
+                    {{form_row(formI.submit)}}
+                </div>
+
+            {{form_end(formI)}}
+        </div>
+    </div>
 {% endblock %}

@@ -150,3 +150,43 @@ background-color: #749a7e;
 /* :root{
     --bs-btn-color:black;
 } */
+
+/* formulaire */
+
+.inputFormulaire{
+    font-weight:900;
+    border-radius:100px 100px 100px 100px / 100px 100px 100px 100px;
+    font-size: xx-large;
+    background-color:#e4e2dd;
+}
+.btnFormulaire{
+    color:#749a7e;
+    background-color:#e4e2dd;
+    border-radius:100px 100px 100px 100px / 100px 100px 100px 100px;
+    font-weight: 900;
+    font-size:x-large;
+
+}
+.lienInscription{
+    color:#749a7e;
+    font-size:xx-large;
+}
+.lienMdp{
+    color:black;
+    font-size: large; 
+}
+.lienPdC{
+    color:black;
+    font-size: x-large; 
+}
+.radio{
+    background-color:#e4e2dd;
+}
+/* LES MESSAGES D'ERREUR */
+
+li::marker{
+    color:#801818;
+}
+/* .messageErreur{
+    color:red;
+} */

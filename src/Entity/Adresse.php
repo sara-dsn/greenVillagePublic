@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Client;
+use App\Entity\Fournisseur;
 use App\Repository\AdresseRepository;
 use Doctrine\ORM\Mapping as ORM;
 

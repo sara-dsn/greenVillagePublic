@@ -1,6 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1 class="titre text-center my-4">Connexion</h1>
-{{ form_start(formC) }}
 
-{{ form_end(formC)}}
+    <h1 class="titre text-center my-4">Connexion</h1>
+
+    {{ form_start(formC) }}
+        {{ form_errors(formC) }}
+
+        <div class="d-flex justify-content-center container-fluid">
+            <div class="col-6 my-2">
+                {{ form_row(formC.mail)}}
+                {{ form_row(formC.mot_de_passe)}}
+                <div class="d-flex justify-content-end">
+                    {{form_row(formC.submit)}}
+                </div>
+                <div class="text-center">
+                    <a href="mdp_oublie" class="lienMdp" type="submit">mot de passe oublié ?</a>
+                </div>
+            </div>
+        </div>
+        <h2 class="text-center titre my-4">nouveau client Green Village</h2>
+        <div class="text-center">
+            <a href="inscription" class="lienInscription mb-5" type="submit"> je crée mon compte</a>
+        </div>
+    {{ form_end(formC)}}
+{% endblock %}

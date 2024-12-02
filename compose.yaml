@@ -1,5 +1,11 @@
 
 services:
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1030:1025
+      - 8030:8025
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
