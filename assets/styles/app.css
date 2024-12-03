@@ -184,6 +184,10 @@ background-color: #749a7e;
 }
 /* LES MESSAGES D'ERREUR */
 
+.messageErreur{
+    color:#801818;
+    font-size:x-large;
+}
 li::marker{
     color:#801818;
 }

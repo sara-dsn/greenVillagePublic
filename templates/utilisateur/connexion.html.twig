@@ -2,13 +2,22 @@
 {% block body %}
 
     <h1 class="titre text-center my-4">Connexion</h1>
-
+ 
     {{ form_start(formC) }}
         {{ form_errors(formC) }}
 
         <div class="d-flex justify-content-center container-fluid">
             <div class="col-6 my-2">
-                {{ form_row(formC.mail)}}
+                {% if message is defined %}
+                    <p class="text-center messageErreur"> {{ message }}</p>
+                {% endif %}
+               {% if app.request.query.get('dejaCompte') %}
+                    <p class="text-center messageErreur">{{ app.request.query.get('dejaCompte')}}</p>
+                    {{ form_row(formC.mail, {'attr':{'value':app.request.query.get('mail')}})}}
+                {% endif %}
+                {% if not app.request.query.get('dejaCompte') %}
+                    {{ form_row(formC.mail)}}
+                {% endif %}
                 {{ form_row(formC.mot_de_passe)}}
                 <div class="d-flex justify-content-end">
                     {{form_row(formC.submit)}}

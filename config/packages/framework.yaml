@@ -13,4 +13,10 @@ when@test:
     framework:
         test: true
         session:
+            # ID of the service used for session storage
+            # NULL means that Symfony uses PHP default session mechanism
+            handler_id: null
+            # improves the security of the cookies used for sessions
+            cookie_secure: auto
+            cookie_samesite: lax
             storage_factory_id: session.storage.factory.mock_file
