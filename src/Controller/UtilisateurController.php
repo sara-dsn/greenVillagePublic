@@ -17,31 +17,39 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UtilisateurController extends AbstractController
 {
  
     #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, EntityManagerInterface $entityManager): Response
+    public function connexion(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $auth ): Response
     {
+        $erreur=$auth->getLastAuthenticationError();
+        $dernierPseudo=$auth->getLastUsername();
+        
         $client= new Client();
         $formC=$this->createForm(ConnexionType::class, $client);
         $formC->handlerequest($request);
         if($formC->isSubmitted() && $formC->isValid()){
             $data=$formC->getData();
             $mail=$data['mail'];
+
+            // entrer dans BdD une nouvelle date de connexion
             $utilisateur=$entityManager->getRepository(Client::class)->findBy(['mail'=>$mail]);
             if($utilisateur){
                 $mdpCorrect=$utilisateur['motDePasse'];
                 $mdp=$data('mdp');
                 if(password_verify($mdp,$mdpCorrect[0])){
-                    $session=$request->getSession($mail);
+                    // $session=$request->getSession($mail);
                 }
                 else{
 
                     return $this->render('utilisateur/connexion.html.twig', [
                         'formC'=>$formC,
                         'message'=>"L'email ou le mot de passe est incorrect",
+                        'erreur'=>$erreur,
+                        'pseudo'=>$dernierPseudo,
                     ]);
                 }
             }
@@ -98,7 +106,7 @@ class UtilisateurController extends AbstractController
                 $client->setPrenom($data['prenom']);
                 $client->setMail($data['mail']);
                 $client->setNumeroTelephone($data['numeroTelephone']);
-                $client->setMotDePasse($mdp);
+                $client->setPassword($mdp);
                 $client->setNom($data['nom']);
                 $client->setDerniereConnexion($date);
                 $client->setReferenceClient($referenceClient);
@@ -117,7 +125,7 @@ class UtilisateurController extends AbstractController
                 $entityManager->persist($adresse);
                 $entityManager->flush();
 
-                $session=$request->setSession($data['mail']);
+                $session=$request->setSession($data['mail'],'ROLE_USER');
 
                 $mail = (new TemplatedEmail())
                 ->from('greenVillage@example.com')
@@ -167,4 +175,5 @@ class UtilisateurController extends AbstractController
             'formI'=>$formI,
         ]);
     }
+    
 }

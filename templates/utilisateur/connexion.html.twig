@@ -8,6 +8,7 @@
 
         <div class="d-flex justify-content-center container-fluid">
             <div class="col-6 my-2">
+            {%%}
                 {% if message is defined %}
                     <p class="text-center messageErreur"> {{ message }}</p>
                 {% endif %}
@@ -18,7 +19,7 @@
                 {% if not app.request.query.get('dejaCompte') %}
                     {{ form_row(formC.mail)}}
                 {% endif %}
-                {{ form_row(formC.mot_de_passe)}}
+                {{ form_row(formC.mdp)}}
                 <div class="d-flex justify-content-end">
                     {{form_row(formC.submit)}}
                 </div>

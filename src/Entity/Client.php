@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['mail'])]
+#[UniqueEntity(fields: ['mail'], message: 'Il y a déjà un compte avec cet email.')]
+class Client  implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,8 +36,6 @@ class Client
     #[ORM\Column]
     private ?int $numero_telephone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $mot_de_passe = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mot_de_passe_temporaire = null;
@@ -52,7 +55,20 @@ class Client
     #[ORM\OneToOne(mappedBy: 'personne', cascade: ['persist', 'remove'])]
     private ?Adresse $adresse = null;
 
+    /**
+     * @var list<string> The user roles
+     */
+    #[ORM\Column(length: 255)]
+    private array $roles = [];
 
+    #[ORM\Column]
+    private bool $verifie = false;
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column(length: 255)]
+    private ?string $mdp = null;
 
     public function getId(): ?int
     {
@@ -119,17 +135,6 @@ class Client
         return $this;
     }
 
-    public function getMotDePasse(): ?string
-    {
-        return $this->mot_de_passe;
-    }
-
-    public function setMotDePasse(string $mot_de_passe): static
-    {
-        $this->mot_de_passe = $mot_de_passe;
-
-        return $this;
-    }
 
     public function getMotDePasseTemporaire(): ?string
     {
@@ -213,7 +218,76 @@ class Client
         return $this;
     }
 
+     /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->mail;
+    }
 
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function setPassword(string $mdp): static
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->verifie;
+    }
+
+    public function setVerified(bool $verifie): static
+    {
+        $this->verifie = $verifie;
+
+        return $this;
+    }
+    
 
 
 }

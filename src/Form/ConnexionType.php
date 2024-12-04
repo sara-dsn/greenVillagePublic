@@ -23,7 +23,7 @@ class ConnexionType extends AbstractType
                 'label'=>false
             ] 
             )
-            ->add('mot_de_passe',PasswordType::class,[ 
+            ->add('mdp',PasswordType::class,[ 
                 'attr'=>[
                     "placeholder"=>"  mot de passe",
                 "class"=>"inputFormulaire w-100 my-2"
