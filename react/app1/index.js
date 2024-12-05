@@ -1,9 +1,1 @@
-import React from 'react'
-
-const App = () => {
-    return(
-        <div>
-            Bonjour
-        </div>
-    )
-}
+console.log("test app1");
