@@ -71,7 +71,7 @@ class InscriptionType extends AbstractType
                     'class'=>'w-100 my-2 inputFormulaire'
                 ]
             ])
-            ->add('mdp', PasswordType::class,[
+            ->add('password', PasswordType::class,[
                 'label'=>false,
                 'attr'=>[
                     'placeholder'=>'  mot de passe',
@@ -105,7 +105,7 @@ class InscriptionType extends AbstractType
             $form=$AvantEnvoi->getForm();
             $data=$form->getData();
 
-            if($data['mdp']!==$data['mdp_confirmation']){
+            if($data['password']!==$data['mdp_confirmation']){
                 $form->get('mdp_confirmation')->addError(new FormError('Les deux mots de passe doivent être identiques.'));
             };
 

@@ -3,18 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Client;
+use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ConnexionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+    
             ->add('mail',TextType::class,[
                 'attr'=>[
                     'placeholder'=>'  mail',
@@ -23,7 +26,7 @@ class ConnexionType extends AbstractType
                 'label'=>false
             ] 
             )
-            ->add('mdp',PasswordType::class,[ 
+            ->add('password',PasswordType::class,[ 
                 'attr'=>[
                     "placeholder"=>"  mot de passe",
                 "class"=>"inputFormulaire w-100 my-2"
@@ -36,6 +39,7 @@ class ConnexionType extends AbstractType
                 ],
                 'label'=>'se connecter'
             ])
+        ;
         ;
     }
 

@@ -68,7 +68,7 @@ class Client  implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column(length: 255)]
-    private ?string $mdp = null;
+    private ?string $password = null;
 
     public function getId(): ?int
     {
@@ -257,12 +257,12 @@ class Client  implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): ?string
     {
-        return $this->mdp;
+        return $this->password;
     }
 
-    public function setPassword(string $mdp): static
+    public function setPassword(string $password): static
     {
-        $this->mdp = $mdp;
+        $this->password = $password;
 
         return $this;
     }

@@ -38,8 +38,8 @@ class UtilisateurController extends AbstractController
             // entrer dans BdD une nouvelle date de connexion
             $utilisateur=$entityManager->getRepository(Client::class)->findBy(['mail'=>$mail]);
             if($utilisateur){
-                $mdpCorrect=$utilisateur['motDePasse'];
-                $mdp=$data('mdp');
+                $mdpCorrect=$utilisateur['password'];
+                $mdp=$data('password');
                 if(password_verify($mdp,$mdpCorrect[0])){
                     // $session=$request->getSession($mail);
                 }
@@ -87,19 +87,20 @@ class UtilisateurController extends AbstractController
     {
         $formI=$this->createForm(InscriptionType::class);  
         $formI->handleRequest($request);
-
+//       $lisa=$entityManager->getRepository(Client::class)->findBy(["mail"=>'lisa@gmail.com']);    
+// dd($lisa);
 
         if($formI->isSubmitted() && $formI->isValid()){                 
             $data=$formI->getData();
             $leMail=$data['mail'];
 
             $presence=$entityManager->getRepository(Client::class)->findBy(["mail"=>$leMail]);    
-
-            if(!isset($presence)){ 
+      
+            if(empty($presence)){ 
                 $client= new Client();
                 $adresse= new Adresse();
                 $date= new DateTime('now');
-                $mdp=password_hash($data['mdp'],PASSWORD_DEFAULT);
+                $mdp=password_hash($data['password'],PASSWORD_DEFAULT);
                 $referenceClient=substr($data['prenom'],0,2).substr($data['nom'],0,2).random_int(0,10000);
 
                 $client->setNom($data['nom']);
@@ -125,7 +126,7 @@ class UtilisateurController extends AbstractController
                 $entityManager->persist($adresse);
                 $entityManager->flush();
 
-                $session=$request->setSession($data['mail'],'ROLE_USER');
+                // $session=$request->setSession($data['mail'],'ROLE_USER');
 
                 $mail = (new TemplatedEmail())
                 ->from('greenVillage@example.com')
