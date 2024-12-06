@@ -5,7 +5,6 @@
 </p>
 <p><code>{{ email.to[0].address }}</code></p>
 <p> Veuillez activer votre compte s'il vous plaît, en cliquant sur le lien suivant :</p>
-<p>
-    <a href="#">Activer mon compte</a>
-    (ce lien est valable jusqu'à {{ expiration_date|date('F jS') }})
-</p>
+
+    <a href="{{ signedUrl|raw }}">J'active mon compte</a>
+  <p>  (ce lien est valable jusqu'à {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }})</p>

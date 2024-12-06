@@ -36,6 +36,7 @@ class ConnexionType extends AbstractType
             ->add('submit',SubmitType::class,[
                 'attr'=>[
                     "class"=>"btn btnFormulaire my-3 ",
+                    "href"=>"connexion",
                 ],
                 'label'=>'se connecter'
             ])

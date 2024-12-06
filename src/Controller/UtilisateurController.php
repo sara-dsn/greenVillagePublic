@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Security\EmailVerifier;
 use App\Entity\Client;
 use App\Entity\Adresse;
 use App\Form\ConnexionType;
@@ -10,7 +11,7 @@ use App\Form\InscriptionType;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
-use function Symfony\Component\Clock\now;
+use Symfony\Component\Clock\now;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -21,13 +22,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UtilisateurController extends AbstractController
 {
- 
+    public function __construct(private EmailVerifier $emailVerifier)
+    {
+    }
     #[Route('/connexion', name: 'app_connexion')]
     public function connexion(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $auth ): Response
     {
         $erreur=$auth->getLastAuthenticationError();
         $dernierPseudo=$auth->getLastUsername();
-        
         $client= new Client();
         $formC=$this->createForm(ConnexionType::class, $client);
         $formC->handlerequest($request);
@@ -35,13 +37,14 @@ class UtilisateurController extends AbstractController
             $data=$formC->getData();
             $mail=$data['mail'];
 
-            // entrer dans BdD une nouvelle date de connexion
             $utilisateur=$entityManager->getRepository(Client::class)->findBy(['mail'=>$mail]);
             if($utilisateur){
                 $mdpCorrect=$utilisateur['password'];
                 $mdp=$data('password');
                 if(password_verify($mdp,$mdpCorrect[0])){
                     // $session=$request->getSession($mail);
+                     // entrer dans BdD une nouvelle date de connexion
+
                 }
                 else{
 
@@ -83,7 +86,7 @@ class UtilisateurController extends AbstractController
 
 
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function inscription(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, ): Response
     {
         $formI=$this->createForm(InscriptionType::class);  
         $formI->handleRequest($request);
@@ -128,16 +131,17 @@ class UtilisateurController extends AbstractController
 
                 // $session=$request->setSession($data['mail'],'ROLE_USER');
 
-                $mail = (new TemplatedEmail())
+                $this->emailVerifier->sendEmailConfirmation('app_confirmationMail', $client,
+                (new TemplatedEmail())
                 ->from('greenVillage@example.com')
-                ->to(new Address($data['mail']))
+                ->to($client->getMail())
                 ->subject('Confirmer votre compte GreenVillage')
 
                 // path of the Twig template to render
                 ->htmlTemplate('mail/mail.html.twig')
 
                 // change locale used in the template, e.g. to match user's locale
-                ->locale('de')
+               // ->locale('de')
 
                 // pass variables (name => value) to the template
                 ->context([
@@ -146,8 +150,8 @@ class UtilisateurController extends AbstractController
                     'name'=>$data['prenom'],
 
                 ])
-            ;
-            $mailer->send($mail);
+                );
+                //$mailer->send($mail);
                 // $mail=(new Email())
                 // ->from('GreenVillage@gmail.com')
                 // ->to($data['mail'])
