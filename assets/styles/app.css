@@ -7,7 +7,9 @@ body {
     font-variation-settings: "wdth" 100;
 
 }
-
+a{
+    text-decoration: none;
+}
 /* HEADER */
 .logo{
     width:12%
