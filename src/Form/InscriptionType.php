@@ -96,7 +96,7 @@ class InscriptionType extends AbstractType
             ->add('submit',SubmitType::class,[
                 'label'=>'enregistrer',
                 'attr'=>[
-                    'class'=>' btn btnFormulaire  mb-4'
+                    'class'=>' btn btnFormulaire  mb-4',
                 ]
             ])
 

@@ -22,89 +22,81 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UtilisateurController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
-    {
-    }
+    public function __construct(private EmailVerifier $emailVerifier) {}
     #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $auth ): Response
+    public function connexion(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $auth): Response
     {
-        $erreur=$auth->getLastAuthenticationError();
-        $dernierPseudo=$auth->getLastUsername();
-        $client= new Client();
-        $formC=$this->createForm(ConnexionType::class, $client);
+        $erreur = $auth->getLastAuthenticationError();
+        $dernierPseudo = $auth->getLastUsername();
+        $client = new Client();
+        $formC = $this->createForm(ConnexionType::class, $client);
         $formC->handlerequest($request);
-        if($formC->isSubmitted() && $formC->isValid()){
-            $data=$formC->getData();
-            $mail=$data['mail'];
+        if ($formC->isSubmitted() && $formC->isValid()) {
+            $data = $formC->getData();
+            $mail = $data['mail'];
 
-            $utilisateur=$entityManager->getRepository(Client::class)->findBy(['mail'=>$mail]);
-            if($utilisateur){
-                $mdpCorrect=$utilisateur['password'];
-                $mdp=$data('password');
-                if(password_verify($mdp,$mdpCorrect[0])){
+            $utilisateur = $entityManager->getRepository(Client::class)->findBy(['mail' => $mail]);
+            if ($utilisateur) {
+                $mdpCorrect = $utilisateur['password'];
+                $mdp = $data('password');
+                if (password_verify($mdp, $mdpCorrect[0])) {
                     // $session=$request->getSession($mail);
-                     // entrer dans BdD une nouvelle date de connexion
+                    // entrer dans BdD une nouvelle date de connexion
 
-                }
-                else{
+                } else {
 
                     return $this->render('utilisateur/connexion.html.twig', [
-                        'formC'=>$formC,
-                        'message'=>"L'email ou le mot de passe est incorrect",
-                        'erreur'=>$erreur,
-                        'pseudo'=>$dernierPseudo,
+                        'formC' => $formC,
+                        'message' => "L'email ou le mot de passe est incorrect",
+                        'erreur' => $erreur,
+                        'pseudo' => $dernierPseudo,
                     ]);
                 }
-            }
-            else{
-                return $this->redirectToRoute('app_inscription',[
-                    'message'=>"Vous n'êtes pas encore inscrit",
+            } else {
+                return $this->redirectToRoute('app_inscription', [
+                    'message' => "Vous n'êtes pas encore inscrit",
                 ]);
             };
-
         }
-   
+
         return $this->render('utilisateur/connexion.html.twig', [
-            'formC'=>$formC,
+            'formC' => $formC,
             // 'message'=>'',
         ]);
     }
     #[Route('/test', name: 'app_test')]
     public function test(): Response
     {
-        return $this->render('utilisateur/test.html.twig', [
-        ]);
+        return $this->render('utilisateur/test.html.twig', []);
     }
     #[Route('/test2', name: 'app_test2')]
     public function test2(): Response
     {
-       
 
-        return $this->render('utilisateur/test2.html.twig', [
-        ]);
+
+        return $this->render('utilisateur/test2.html.twig', []);
     }
 
 
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, ): Response
+    public function inscription(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer,): Response
     {
-        $formI=$this->createForm(InscriptionType::class);  
+        $formI = $this->createForm(InscriptionType::class);
         $formI->handleRequest($request);
-//       $lisa=$entityManager->getRepository(Client::class)->findBy(["mail"=>'lisa@gmail.com']);    
-// dd($lisa);
 
-        if($formI->isSubmitted() && $formI->isValid()){                 
-            $data=$formI->getData();
-            $leMail=$data['mail'];
+        if ($formI->isSubmitted() && $formI->isValid()) {
+            dd("gg");
+            $data = $formI->getData();
+            $leMail = $data['mail'];
 
-            $presence=$entityManager->getRepository(Client::class)->findBy(["mail"=>$leMail]);    
-      
-            if(empty($presence)){ 
-                $client= new Client();
-                $adresse= new Adresse();
-                $date= new DateTime('now');
-                $mdp=password_hash($data['password'],PASSWORD_DEFAULT);
-                $referenceClient=substr($data['prenom'],0,2).substr($data['nom'],0,2).random_int(0,10000);
+            $presence = $entityManager->getRepository(Client::class)->findBy(["mail" => $leMail]);
+
+            if (empty($presence)) {
+                $client = new Client();
+                $adresse = new Adresse();
+                $date = new DateTime('now');
+                $mdp = password_hash($data['password'], PASSWORD_DEFAULT);
+                $referenceClient = substr($data['prenom'], 0, 2) . substr($data['nom'], 0, 2) . random_int(0, 10000);
 
                 $client->setNom($data['nom']);
                 $client->setPrenom($data['prenom']);
@@ -131,25 +123,27 @@ class UtilisateurController extends AbstractController
 
                 // $session=$request->setSession($data['mail'],'ROLE_USER');
 
-                $this->emailVerifier->sendEmailConfirmation('app_confirmationMail', $client,
-                (new TemplatedEmail())
-                ->from('greenVillage@example.com')
-                ->to($client->getMail())
-                ->subject('Confirmer votre compte GreenVillage')
+                $this->emailVerifier->sendEmailConfirmation(
+                    'app_confirmationMail',
+                    $client,
+                    (new TemplatedEmail())
+                        ->from('greenVillage@example.com')
+                        ->to($client->getMail())
+                        ->subject('Confirmer votre compte GreenVillage')
 
-                // path of the Twig template to render
-                ->htmlTemplate('mail/mail.html.twig')
+                        // path of the Twig template to render
+                        ->htmlTemplate('mail/mail.html.twig')
 
-                // change locale used in the template, e.g. to match user's locale
-               // ->locale('de')
+                        // change locale used in the template, e.g. to match user's locale
+                        // ->locale('de')
 
-                // pass variables (name => value) to the template
-                ->context([
-                    'expiration_date' => new \DateTime('+7 days'),
-                    'username' => $data['mail'],
-                    'name'=>$data['prenom'],
+                        // pass variables (name => value) to the template
+                        ->context([
+                            'expiration_date' => new \DateTime('+7 days'),
+                            'username' => $data['mail'],
+                            'name' => $data['prenom'],
 
-                ])
+                        ])
                 );
                 //$mailer->send($mail);
                 // $mail=(new Email())
@@ -166,19 +160,16 @@ class UtilisateurController extends AbstractController
                 // $mailer->send($mail);
 
                 return $this->redirectToRoute('app_test');
-            }
-            else{
-                $dejaCompte='Vous avez déjà un compte Green Village.';
-                return $this->redirectToRoute('app_connexion',[
-                    'dejaCompte'=>$dejaCompte,
-                    'mail'=>$leMail,
+            } else {
+                $dejaCompte = 'Vous avez déjà un compte Green Village.';
+                return $this->redirectToRoute('app_connexion', [
+                    'dejaCompte' => $dejaCompte,
+                    'mail' => $leMail,
                 ]);
-
             };
         }
         return $this->render('utilisateur/inscription.html.twig', [
-            'formI'=>$formI,
+            'formI' => $formI,
         ]);
     }
-    
 }
