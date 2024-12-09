@@ -15,7 +15,7 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function accueil(EntityManagerInterface $entityManager): Response
     {
-        $rubriques=$entityManager->getRepository(Rubrique::class)->findAll();
+        $rubriques=$entityManager->getRepository(Rubrique::class)->findBy(["parent"=>NULL]);
         $instruments=$entityManager->getRepository(Instrument::class)->findBy([],null,3);
         return $this->render('catalogue/accueil.html.twig', [
            'instruments' =>$instruments,
