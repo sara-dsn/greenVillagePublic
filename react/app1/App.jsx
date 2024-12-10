@@ -2,7 +2,7 @@ import {React,useState} from "react";
 import DataTable from "datatables.net-dt";
 
 
-export default App = () => {
+const App = () => {
 
     const [Film, setFilm]=useState([]);
     const [value, setValue]=useState("");
@@ -10,21 +10,23 @@ export default App = () => {
     
 
     const handleClick =()=>{
-
+        setValue(value); // enlever après
+        fetch("http://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=".value);
 
     }
+    console.log(fetch("http://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=avenger"));
 
 
     return(
         <>
         <input type="text" value={value} /><button type="submit" onClick={handleClick} class="btn btn-dark "> Rechercher </button>
-        <DataBase>
+        {/* <DataTable>
             data={Film}
-        </DataBase>
+        </DataTable> */}
         </>
     )
 }
-
+export default App;
 
 
 
