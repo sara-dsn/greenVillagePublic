@@ -11,9 +11,10 @@ const App = () => {
         setValue(value); // enlever après
     }
 
+        // console.log("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="."tt");
 
     const handleClick =()=>{
-        fetch("http://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=".value)
+        fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=".value)
             .then((response)=>{
                 return response.json();
             })
@@ -30,7 +31,8 @@ const App = () => {
 
     return(
         <>
-        <input type="text" onChange={handleChange} /><button type="submit" onClick={handleClick} class="btn btn-dark "> Rechercher </button>
+        <h1 class="text-center titre">Recherchez votre film</h1>
+        <div class="d-flex justify-content-center my-3" ><input type="text" class="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} class="btn btn-dark"> Rechercher </button></div>
         {/* <DataTable>
             columns={columns}
             data={data}
