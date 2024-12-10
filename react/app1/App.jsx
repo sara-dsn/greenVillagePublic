@@ -34,8 +34,9 @@ const App = () => {
         <h1 class="text-center titre">Recherchez votre film</h1>
         <div class="d-flex justify-content-center my-3" ><input type="text" class="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} class="btn btn-dark"> Rechercher </button></div>
         {/* <DataTable>
-            columns={columns}
+            columns={Film.}
             data={data}
+            defaultfield
         </DataTable> */}
         </>
     )
