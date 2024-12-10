@@ -120,7 +120,7 @@ class UtilisateurController extends AbstractController
                 $entityManager->persist($adresse);
                 $entityManager->flush();
 
-                // $session=$request->setSession($data['mail'],'ROLE_USER');
+                $session=$request->getSession()->set("LAST_USERNAME" , $leMail);
 
                 $this->emailVerifier->sendEmailConfirmation(
                     'app_confirmationMail',
@@ -160,7 +160,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
          if ($this->getUser()) {
              return $this->redirectToRoute('app_accueil');

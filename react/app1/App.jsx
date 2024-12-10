@@ -1,3 +1,55 @@
+import {React,useState} from "react";
+import DataTable from "datatables.net-dt";
+
+
+export default App = () => {
+
+    const [Film, setFilm]=useState([]);
+    const [value, setValue]=useState("");
+
+    const handleClick =()=>{
+
+    }
+
+
+    return(
+        <>
+        <input type="text" value={value} /><button type="submit" onClick={handleClick} class="btn btn-dark "> Rechercher </button>
+
+        </>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import {React,useState} from 'react';
 
 // const App =()=>{
