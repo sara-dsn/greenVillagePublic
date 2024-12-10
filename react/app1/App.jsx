@@ -7,21 +7,33 @@ const App = () => {
     const [Film, setFilm]=useState([]);
     const [value, setValue]=useState("");
 
-    
+    const handleChange=(value)=>{
+        setValue(value); // enlever après
+    }
+
 
     const handleClick =()=>{
-        setValue(value); // enlever après
-        fetch("http://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=".value);
-
+        fetch("http://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=".value)
+            .then((response)=>{
+                return response.json();
+            })
+            .then((data)=>{
+                console.log(data);
+                setFilm(data);
+            })
+            .catch(function (error){
+                console.log(error);
+            })
     }
-    console.log(fetch("http://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=avenger"));
+   
 
 
     return(
         <>
-        <input type="text" value={value} /><button type="submit" onClick={handleClick} class="btn btn-dark "> Rechercher </button>
+        <input type="text" onChange={handleChange} /><button type="submit" onClick={handleClick} class="btn btn-dark "> Rechercher </button>
         {/* <DataTable>
-            data={Film}
+            columns={columns}
+            data={data}
         </DataTable> */}
         </>
     )
