@@ -11,10 +11,10 @@ const App = () => {
         setValue(value); // enlever après
     }
 
-        // console.log("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="."tt");
+        // console.log("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+"tt");
 
     const handleClick =()=>{
-        fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query=".value)
+        fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+value)
             .then((response)=>{
                 return response.json();
             })
