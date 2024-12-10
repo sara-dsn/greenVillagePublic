@@ -85,7 +85,6 @@ class UtilisateurController extends AbstractController
         $formI->handleRequest($request);
 
         if ($formI->isSubmitted() && $formI->isValid()) {
-            dd("gg");
             $data = $formI->getData();
             $leMail = $data['mail'];
 

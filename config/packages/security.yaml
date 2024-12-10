@@ -17,8 +17,8 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: app_connexion
-                check_path: app_connexion
+                login_path: app_connexion #Cette ligne indique la route où se trouve le formulaire de connexion 
+                check_path: app_login
             custom_authenticator: App\Security\LoginFormAuthenticator
             entry_point: App\Security\LoginFormAuthenticator
             logout:
