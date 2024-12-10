@@ -144,19 +144,6 @@ class UtilisateurController extends AbstractController
 
                         ])
                 );
-                //$mailer->send($mail);
-                // $mail=(new Email())
-                // ->from('GreenVillage@gmail.com')
-                // ->to($data['mail'])
-                // //->cc('cc@example.com')
-                // //->bcc('bcc@example.com')
-                // //->replyTo('fabien@example.com')
-                // //->priority(Email::PRIORITY_HIGH)
-                // ->subject('Confirmation de votre compte Green Village')
-                // ->text("Veuillez confirmer votre compte en cliquant sur le lien ci-dessous s'il vous plaît")
-                // // ->html('<p>See Twig integration for better HTML integration!</p>');
-                // ;
-                // $mailer->send($mail);
 
                 return $this->redirectToRoute('app_test');
             } else {
@@ -170,5 +157,27 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/inscription.html.twig', [
             'formI' => $formI,
         ]);
+    }
+
+    #[Route(path: '/login', name: 'app_login')]
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+         if ($this->getUser()) {
+             return $this->redirectToRoute('app_accueil');
+        }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+        return $this->redirectToRoute('app_accueil');
+    } 
+
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
