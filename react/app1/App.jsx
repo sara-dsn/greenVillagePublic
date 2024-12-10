@@ -7,7 +7,10 @@ export default App = () => {
     const [Film, setFilm]=useState([]);
     const [value, setValue]=useState("");
 
+    
+
     const handleClick =()=>{
+
 
     }
 
@@ -15,7 +18,9 @@ export default App = () => {
     return(
         <>
         <input type="text" value={value} /><button type="submit" onClick={handleClick} class="btn btn-dark "> Rechercher </button>
-
+        <DataBase>
+            data={Film}
+        </DataBase>
         </>
     )
 }
