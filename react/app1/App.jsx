@@ -1,52 +1,52 @@
-import {React,useState} from "react";
-import DataTable from "react-data-table-component";
+// import {React,useState} from "react";
+// import DataTable from "react-data-table-component";
 
 
 
-const App = () => {
+// const App = () => {
 
-    const [value, setValue]=useState("");
-    const [film, setFilm]=useState("");
-
-
-    const handleChange=(value)=>{
-        setValue(value); // enlever après
-    }
-
-    const handleClick =()=>{
-
-        fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+value)
-        .then((response)=>{ return response.json()})
-        .then((data)=>{ setFilm(data.results || []);
-            console.log(film);
-        })
-        .catch(function (error){ console.log(error); }) 
+//     const [value, setValue]=useState("");
+//     const [film, setFilm]=useState("");
 
 
-    }
-    const columns=[
-        {
-            name: <b>Titre</b>,
-            selector: (row)=>row.title,
-            sortable:true,
-        },
+//     const handleChange=(value)=>{
+//         setValue(value); // enlever après
+//     }
+
+//     const handleClick =()=>{
+
+//         fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+value)
+//         .then((response)=>{ return response.json()})
+//         .then((data)=>{ setFilm(data.results || []);
+//             console.log(film);
+//         })
+//         .catch(function (error){ console.log(error); }) 
+
+
+//     }
+//     const columns=[
+//         {
+//             name: <b>Titre</b>,
+//             selector: (row)=>row.title,
+//             sortable:true,
+//         },
      
       
-    ]
+//     ]
 
-    return(
-        <>
-        <h1 className="text-center titre">Recherchez votre film</h1>
-        <div className="d-flex justify-content-center my-3" ><input type="text" className="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} className="btn btn-dark"> Rechercher </button></div>
-        <DataTable
-            columns={columns}
-            data={film}
-            defaultSautFieldId={0}>
-        </DataTable>
-        </>
-    )
-}
-export default App;
+//     return(
+//         <>
+//         <h1 className="text-center titre">Recherchez votre film</h1>
+//         <div className="d-flex justify-content-center my-3" ><input type="text" className="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} className="btn btn-dark"> Rechercher </button></div>
+//         <DataTable
+//             columns={columns}
+//             data={film}
+//             defaultSautFieldId={0}>
+//         </DataTable>
+//         </>
+//     )
+// }
+// export default App;
 
 
 
