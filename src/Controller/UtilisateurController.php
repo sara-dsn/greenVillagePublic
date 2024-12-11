@@ -18,67 +18,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class UtilisateurController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier) {}
-    #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
-    {
-        $erreur = $auth->getLastAuthenticationError();
-        $dernierPseudo = $auth->getLastUsername();
-        $client = new Client();
-        $formC = $this->createForm(ConnexionType::class, $client);
-        $formC->handlerequest($request);
+    public function __construct(private EmailVerifier $emailVerifier) {
 
-        if ($formC->isSubmitted() && $formC->isValid()) {
-            $data = $formC->getData();
-            $mail = $data['mail'];
-
-            $utilisateur = $entityManager->getRepository(Client::class)->findBy(['mail' => $mail]);
-            if ($utilisateur) {
-                $mdpCorrect = $utilisateur['password'];
-                $mdp = $data('password');
-                if (password_verify($mdp, $mdpCorrect[0])) {
-                    // $session=$request->getSession($mail);
-                    // entrer dans BdD une nouvelle date de connexion
-
-
-                } else {
-
-                    return $this->redirectToRoute('app_connexion', [
-                        'message' => "L'email ou le mot de passe est incorrect",
-                        'erreur' => $erreur,
-                        'pseudo' => $dernierPseudo,
-                    ]);
-                }
-            } else {
-                return $this->redirectToRoute('app_inscription', [
-                    'message' => "Vous n'êtes pas encore inscrit",
-                ]);
-            };
-        }
-
-        return $this->render('utilisateur/connexion.html.twig', [
-            'formC' => $formC,
-            // 'message'=>'',
-        ]);
     }
-    #[Route('/test', name: 'app_test')]
-    public function test(): Response
-    {
-        return $this->render('utilisateur/test.html.twig', []);
-    }
-    #[Route('/test2', name: 'app_test2')]
-    public function test2(): Response
-    {
-
-
-        return $this->render('utilisateur/test2.html.twig', []);
-    }
-
+    
 
     #[Route('/inscription', name: 'app_inscription')]
     public function inscription(Request $request , Security $security, EntityManagerInterface $entityManager, MailerInterface $mailer,): Response
@@ -161,6 +111,77 @@ class UtilisateurController extends AbstractController
             'formI' => $formI,
         ]);
     }
+    
+
+
+    #[Route('/connexion', name: 'app_connexion')]
+    public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
+    {
+        $erreur = $auth->getLastAuthenticationError();
+        $dernierPseudo = $auth->getLastUsername();
+        $client = new Client();
+        $formC = $this->createForm(ConnexionType::class, $client);
+        $formC->handlerequest($request);
+
+        if ($formC->isSubmitted() && $formC->isValid()) {
+            $data = $formC->getData();
+            $mail = $data['mail'];
+
+            $utilisateur = $entityManager->getRepository(Client::class)->findBy(['mail' => $mail]);
+            if ($utilisateur) {
+                $mdpCorrect = $utilisateur['password'];
+                $mdp = $data('password');
+                if (password_verify($mdp, $mdpCorrect[0])) {
+                    // $session=$request->getSession($mail);
+                    // entrer dans BdD une nouvelle date de connexion
+
+
+                } else {
+
+                    return $this->redirectToRoute('app_connexion', [
+                        'message' => "L'email ou le mot de passe est incorrect",
+                        'erreur' => $erreur,
+                        'pseudo' => $dernierPseudo,
+                    ]);
+                }
+            } else {
+                return $this->redirectToRoute('app_inscription', [
+                    'message' => "Vous n'êtes pas encore inscrit",
+                ]);
+            };
+        }
+
+        return $this->render('utilisateur/connexion.html.twig', [
+            'formC' => $formC,
+            // 'message'=>'',
+        ]);
+    }
+  
+
+
+    #[Route('/confirmationMail', name: 'app_confirmationMail')]
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        // validate email confirmation link, sets User::isVerified=true and persists
+        try {
+            /** @var Client $user */
+            $user = $this->getUser();
+            $this->emailVerifier->handleEmailConfirmation($request, $user);
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
+
+            return $this->redirectToRoute('app_connexion');
+        }
+
+        // @TODO Change the redirect on success and handle or remove the flash message in your templates
+        $this->addFlash('success', "Votre adresse mail vient d'être vérifée.");
+
+        return $this->redirectToRoute('app_connexion');
+    }
+
+
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
@@ -178,9 +199,24 @@ class UtilisateurController extends AbstractController
         return $this->redirectToRoute('app_accueil');
     } 
 
+
+
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    } 
+    
+    
+    
+    #[Route('/test', name: 'app_test')]
+    public function test(): Response
+    {
+        return $this->render('utilisateur/test.html.twig', []);
+    }
+    #[Route('/test2', name: 'app_test2')]
+    public function test2(): Response
+    {
+        return $this->render('utilisateur/test2.html.twig', []);
     }
 }
