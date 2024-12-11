@@ -2,7 +2,9 @@
 {% block body %}
 
     <h1 class="titre text-center my-4">Connexion</h1>
- 
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
     {{ form_start(formC) }}
         {{ form_errors(formC) }}
 
