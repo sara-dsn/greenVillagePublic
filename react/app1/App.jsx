@@ -19,14 +19,17 @@ const App = () => {
                 return response.json();
             })
             .then((data)=>{
-                console.log(data);
-                setFilm(data);
+                // console.log(data);
+                setFilm(data);                              
+                console.log(Film);
+
             })
             .catch(function (error){
                 console.log(error);
-            })
+            }) 
+             
+
     }
-   
 
 
     return(
@@ -34,9 +37,9 @@ const App = () => {
         <h1 class="text-center titre">Recherchez votre film</h1>
         <div class="d-flex justify-content-center my-3" ><input type="text" class="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} class="btn btn-dark"> Rechercher </button></div>
         {/* <DataTable>
-            columns={Film.}
-            data={data}
-            defaultfield
+            columns={Film.results.title}
+            data={value}
+            defaultSortFieldId={id}
         </DataTable> */}
         </>
     )
