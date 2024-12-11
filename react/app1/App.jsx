@@ -1,46 +1,48 @@
 import {React,useState} from "react";
-import DataTable from "datatables.net-dt";
+import DataTable from "react-data-table-component";
+
 
 
 const App = () => {
 
-    const [Film, setFilm]=useState([]);
     const [value, setValue]=useState("");
+    const [film, setFilm]=useState("");
+
 
     const handleChange=(value)=>{
         setValue(value); // enlever après
     }
 
-        // console.log("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+"tt");
-
     const handleClick =()=>{
-        fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+value)
-            .then((response)=>{
-                return response.json();
-            })
-            .then((data)=>{
-                // console.log(data);
-                setFilm(data);                              
-                console.log(Film);
 
-            })
-            .catch(function (error){
-                console.log(error);
-            }) 
-             
+        fetch("https://api.themoviedb.org/3/search/movie?api_key=f33cd318f5135dba306176c13104506a&query="+value)
+        .then((response)=>{ return response.json()})
+        .then((data)=>{ setFilm(data.results || []);
+            console.log(film);
+        })
+        .catch(function (error){ console.log(error); }) 
+
 
     }
-
+    const columns=[
+        {
+            name: <b>Titre</b>,
+            selector: (row)=>row.title,
+            sortable:true,
+        },
+     
+      
+    ]
 
     return(
         <>
-        <h1 class="text-center titre">Recherchez votre film</h1>
-        <div class="d-flex justify-content-center my-3" ><input type="text" class="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} class="btn btn-dark"> Rechercher </button></div>
-        {/* <DataTable>
-            columns={Film.results.title}
-            data={value}
-            defaultSortFieldId={id}
-        </DataTable> */}
+        <h1 className="text-center titre">Recherchez votre film</h1>
+        <div className="d-flex justify-content-center my-3" ><input type="text" className="inputFormulaire" onChange={handleChange} /><button type="submit" onClick={handleClick} className="btn btn-dark"> Rechercher </button></div>
+        <DataTable
+            columns={columns}
+            data={film}
+            defaultSautFieldId={0}>
+        </DataTable>
         </>
     )
 }
