@@ -207,7 +207,21 @@ class UtilisateurController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     } 
     
-    
+     #[Route(path: '/profil', name: 'app_profil')]
+    public function profil(AuthenticationUtils $authenticationUtils, Request $request): Response
+    {
+         if ($this->getUser()) {
+             return $this->redirectToRoute('app_accueil');
+        }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+        return $this->redirectToRoute('app_accueil');
+    } 
     
     #[Route('/test', name: 'app_test')]
     public function test(): Response
