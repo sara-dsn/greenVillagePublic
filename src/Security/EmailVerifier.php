@@ -42,7 +42,6 @@ class EmailVerifier
      */
     public function handleEmailConfirmation(Request $request, Client $user): void
     {
-        dd("mail confirmé");
         $this->verifyEmailHelper->validateEmailConfirmationFromRequest($request, (string) $user->getId(), (string) $user->getMail());
 
         $user->setVerified(true);

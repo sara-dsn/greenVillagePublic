@@ -7,9 +7,9 @@ body {
     font-variation-settings: "wdth" 100;
 
 }
-a{
+/* a{
     text-decoration: none;
-}
+} */
 /* HEADER */
 .logo{
     width:12%
@@ -19,8 +19,12 @@ a{
     color:  #749a7e;
     font-size: 10rem; 
     font-weight: 900;
-}
 
+}
+.pasDeDeco{
+    text-decoration: none;
+
+}
 .searchbar{
     background-color: #152927;
     border-color: #152927;
@@ -160,6 +164,10 @@ background-color: #749a7e;
     border-radius:100px 100px 100px 100px / 100px 100px 100px 100px;
     font-size: xx-large;
     background-color:#e4e2dd;
+}
+.inputFormulaire:focus{
+    background-color:#e4e2dd;
+
 }
 .btnFormulaire{
     color:#749a7e;

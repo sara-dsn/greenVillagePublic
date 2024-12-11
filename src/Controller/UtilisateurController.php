@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Security\EmailVerifier;
 use App\Entity\Client;
 use App\Entity\Adresse;
 use App\Form\ConnexionType;
 use App\Form\InscriptionType;
+use App\Security\EmailVerifier;
+use Symfony\Component\Clock\now;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Clock\now;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -24,13 +25,14 @@ class UtilisateurController extends AbstractController
 {
     public function __construct(private EmailVerifier $emailVerifier) {}
     #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $auth): Response
+    public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
     {
         $erreur = $auth->getLastAuthenticationError();
         $dernierPseudo = $auth->getLastUsername();
         $client = new Client();
         $formC = $this->createForm(ConnexionType::class, $client);
         $formC->handlerequest($request);
+
         if ($formC->isSubmitted() && $formC->isValid()) {
             $data = $formC->getData();
             $mail = $data['mail'];
@@ -43,10 +45,10 @@ class UtilisateurController extends AbstractController
                     // $session=$request->getSession($mail);
                     // entrer dans BdD une nouvelle date de connexion
 
+
                 } else {
 
-                    return $this->render('utilisateur/connexion.html.twig', [
-                        'formC' => $formC,
+                    return $this->redirectToRoute('app_connexion', [
                         'message' => "L'email ou le mot de passe est incorrect",
                         'erreur' => $erreur,
                         'pseudo' => $dernierPseudo,
@@ -79,7 +81,7 @@ class UtilisateurController extends AbstractController
 
 
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer,): Response
+    public function inscription(Request $request , Security $security, EntityManagerInterface $entityManager, MailerInterface $mailer,): Response
     {
         $formI = $this->createForm(InscriptionType::class);
         $formI->handleRequest($request);
@@ -105,6 +107,7 @@ class UtilisateurController extends AbstractController
                 $client->setNom($data['nom']);
                 $client->setDerniereConnexion($date);
                 $client->setReferenceClient($referenceClient);
+                $client->setRoles(['ROLE_USER']);
 
                 $adresse->setPersonne($client);
                 $adresse->setFacturation(0);
@@ -141,11 +144,11 @@ class UtilisateurController extends AbstractController
                             'expiration_date' => new \DateTime('+7 days'),
                             'username' => $data['mail'],
                             'name' => $data['prenom'],
-
                         ])
-                );
+                    );
 
-                return $this->redirectToRoute('app_test');
+                return $security->login($client, 'form_login', 'main');
+
             } else {
                 $dejaCompte = 'Vous avez déjà un compte Green Village.';
                 return $this->redirectToRoute('app_connexion', [

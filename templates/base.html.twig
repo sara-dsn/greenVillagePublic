@@ -17,11 +17,11 @@
     <body>
         <header>
             <div class="container-fluid d-flex ">
-                <a href="" class="logo col-4">
+                <a href="{{path('app_accueil')}}" class="logo col-4">
                 <img class="img-fluid " alt="Logo Green Village "  src="{{ asset('image/logo.png')}}">
                 </a>
                 <div class="flex-column col-md-8">
-                    <a href="" class="" >
+                    <a href="{{path('app_accueil')}}" class="pasDeDeco" >
                         <h1 class=" text-center fw-bold greenVillage">Green Village</h1>
                     </a>
                     <div class="d-flex justify-content-center mb-3">
@@ -38,27 +38,27 @@
                         <a href="#" class=" ms-4"><img class="img-fluid py-4 ms-4" src="{{asset('image/icone/coeur.png')}}"></a>
                         <a href="#" class=" ms-4"><img class="img-fluid py-4 ms-4" src="{{asset('image/icone/caddie.png')}}"></a>
                         <a href="#" class="ms-4"><img class="img-fluid py-4 ms-4" src="{{asset('image/icone/tchat.png')}}"></a>
-                        <a href="/connexion" class="ms-4"><img class="img-fluid py-4 ms-4" src="{{asset('image/icone/profil.png')}}"></a>
+                        <a href="{{path('app_connexion')}}" class="ms-4"><img class="img-fluid py-4 ms-4" src="{{asset('image/icone/profil.png')}}"></a>
                         <a href="#" class=" ms-4"><img class="img-fluid py-4 ms-4" src="{{asset('image/icone/info.png')}}"></a>
                     </div>
                 </div>
             </div>
             <nav class="navbar">
                 <div class="container-fluid fw-bold ">
-                    <a class="navbar-brand" href="5">tambour</a>
-                    <a class="navbar-brand" href="4">djembé</a>
-                    <a class="navbar-brand" href="16">batterie</a>
-                    <a class="navbar-brand" href="9">bongo</a>
-                    <a class="navbar-brand" href="11">clarinette</a>
-                    <a class="navbar-brand" href="7">saxophone</a>
-                    <a class="navbar-brand" href="14">travèrsiere</a>
-                    <a class="navbar-brand" href="17">flûte</a>
-                    <a class="navbar-brand" href="6">piano</a>
-                    <a class="navbar-brand" href="13">guitare</a>
-                    <a class="navbar-brand" href="10">harpe</a>
-                    <a class="navbar-brand" href="15">alto</a>
-                    <a class="navbar-brand" href="12">contrebasse</a>
-                    <a class="navbar-brand" href="8">violoncelle</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':5 })}}">tambour</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':4 })}}">djembé</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':16 })}}">batterie</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':9 })}}">bongo</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':11 })}}">clarinette</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':7 })}}">saxophone</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':14 })}}">travèrsiere</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':17 })}}">flûte</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':6 })}}">piano</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':13 })}}">guitare</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':10 })}}">harpe</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':15 })}}">alto</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':12 })}}">contrebasse</a>
+                    <a class="navbar-brand" href="{{path('app_instrument',{'id':8 })}}">violoncelle</a>
                 </div>
             </nav>
         </header>
