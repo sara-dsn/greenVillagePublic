@@ -1,6 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1>Interface utilisateur</h1>
+<h1>Votre compte</h1>
 
+
+<a>mes commandes</a>
+<a>mes adresses</a>
+<a>mon panier</a>
+<a>ma liste d'envie</a>
+<a>mes donneés personnelles</a>
+
+<button type="submit" href="{{path('app_logout')}}" class="">Déconnexion</button>
 
 {% endblock %}

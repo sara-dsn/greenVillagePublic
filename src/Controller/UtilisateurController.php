@@ -186,17 +186,22 @@ class UtilisateurController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('app_accueil');
+        // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
+        if ($this->getUser()) {
+            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
+            return $this->redirectToRoute('app_profil');
         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
 
-        return $this->redirectToRoute('app_accueil');
+        // si l'utilisateur n'est pas connecté
+        return $this->render('utilisateur/connexion.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+        // si l'utilisateur est connecté grâce au formulaire de connexion
+        return $this->redirectToRoute('app_profil');
     } 
 
 
@@ -210,17 +215,9 @@ class UtilisateurController extends AbstractController
      #[Route(path: '/profil', name: 'app_profil')]
     public function profil(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('app_accueil');
-        }
+       
+        return $this->render('utilisateur/profil.html.twig');
 
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-
-        return $this->redirectToRoute('app_accueil');
     } 
     
     #[Route('/test', name: 'app_test')]
