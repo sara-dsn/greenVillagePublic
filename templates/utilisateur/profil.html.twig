@@ -1,14 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1>Votre compte</h1>
 
+<h1 class="text-center titre">Votre compte</h1>
 
-<a>mes commandes</a>
-<a>mes adresses</a>
-<a>mon panier</a>
-<a>ma liste d'envie</a>
-<a>mes donneés personnelles</a>
+{# <button href="{{path('')}}" class="">mes commandes</button>
+<button href="{{path('')}}" class="">mes adresses</button>
+<button href="{{path('')}}" class="">mon panier</button>
+<button href="{{path('')}}" class="">ma liste d'envie</button>
+<button href="{{path('')}}" class="">mes donneés personnelles</button> #}
+<div class="container-fluid d-flex flex-column justify-content-center">
+<button  class="my-2">mes commandes</button>
+<button  class="my-2">mes adresses</button>
+<button  class="my-2">mon panier</button>
+<button  class="my-2">ma liste d'envie</button>
+<button  class="my-2">mes donneés personnelles</button>
 
-<button type="submit" href="{{path('app_logout')}}" class="">Déconnexion</button>
+<button type="submit" href="{{path('app_logout')}}" class="my-3">Déconnexion</button>
+
+</div>
 
 {% endblock %}
