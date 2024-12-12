@@ -211,3 +211,14 @@ li::marker{
     font-size: xx-large;
     border-radius: 90px 90px 90px 90px / 90px 90px 90px 90px;
 }
+.btnDeconnexion{
+    background-color:#152927;
+    color: #749a7e;
+    font-weight:900;
+    font-size: xx-large;
+    border-radius: 90px 90px 90px 90px / 90px 90px 90px 90px;
+}
+
+.silhouette{
+    height:45rem;
+}

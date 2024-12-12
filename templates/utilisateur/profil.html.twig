@@ -9,14 +9,20 @@
 <button href="{{path('')}}" class="">ma liste d'envie</button>
 <button href="{{path('')}}" class="">mes donneés personnelles</button> #}
 <div class="container-fluid d-flex  justify-content-center">
-    <div class=" flex-column w-25">
+    <div class="col-4">
+    <img src="{{asset('image/icone/silhouette.avif')}}" class="img-fluid silhouette">
+    </div>
+    <div class=" flex-column col-4">
         <button  class="my-3 btnCompte w-100">mes commandes</button>
         <button  class="my-3 btnCompte w-100">mes adresses</button>
         <button  class="my-3 btnCompte w-100">mon panier</button>
         <button  class="my-3 btnCompte w-100">ma liste d'envie</button>
         <button  class="my-3 btnCompte w-100">mes donneés personnelles</button>
-
-        <button type="submit" href="{{path('app_logout')}}" class="my-3 mb-5 btnCompte w-100">Déconnexion</button>
+        <div class="text-center">
+            <button type="submit" href="{{path('app_logout')}}" class="my-5 mb-5 btnDeconnexion w-50">Déconnexion</button>
+        </div>
+    </div>
+    <div class="col-4">
     </div>
 </div>
 
