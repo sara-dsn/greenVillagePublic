@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-<h1 class="text-center titre">Votre compte</h1>
+<h1 class="text-center titre my-5">Votre compte</h1>
 
 {# <button href="{{path('')}}" class="">mes commandes</button>
 <button href="{{path('')}}" class="">mes adresses</button>
 <button href="{{path('')}}" class="">mon panier</button>
 <button href="{{path('')}}" class="">ma liste d'envie</button>
 <button href="{{path('')}}" class="">mes donneés personnelles</button> #}
-<div class="container-fluid d-flex flex-column justify-content-center">
-<button  class="my-2">mes commandes</button>
-<button  class="my-2">mes adresses</button>
-<button  class="my-2">mon panier</button>
-<button  class="my-2">ma liste d'envie</button>
-<button  class="my-2">mes donneés personnelles</button>
+<div class="container-fluid d-flex  justify-content-center">
+    <div class=" flex-column w-25">
+        <button  class="my-3 btnCompte w-100">mes commandes</button>
+        <button  class="my-3 btnCompte w-100">mes adresses</button>
+        <button  class="my-3 btnCompte w-100">mon panier</button>
+        <button  class="my-3 btnCompte w-100">ma liste d'envie</button>
+        <button  class="my-3 btnCompte w-100">mes donneés personnelles</button>
 
-<button type="submit" href="{{path('app_logout')}}" class="my-3">Déconnexion</button>
-
+        <button type="submit" href="{{path('app_logout')}}" class="my-3 mb-5 btnCompte w-100">Déconnexion</button>
+    </div>
 </div>
 
 {% endblock %}

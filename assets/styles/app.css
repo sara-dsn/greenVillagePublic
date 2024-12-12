@@ -117,6 +117,11 @@ background-color: #e4e2dd;
 border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
 font-weight: 900;
 font-size:large;
+color: black;
+}
+/* ca ne fonctionne que quand je mets la fleche sur le bouton, sinon le texte est gris */
+.btnAjoutPanier:hover{
+    color: black;
 }
 .carteRubrique{
 background-color: #749a7e;
@@ -134,14 +139,6 @@ background-color: #749a7e;
 }
 /* INSTRUMENT */
 
-.bntAjoutPanier{
-    background-color:#e4e2dd;
-    color: black;
-}
-/* ca ne fonctionne que quand je mets la fleche sur le bouton, sinon le texte est gris */
-.btnAjoutPanier:hover{
-    color: black;
-}
 .titreInstrument{
     color: #e4e2dd;
     font-size: x-large;
@@ -204,3 +201,13 @@ li::marker{
 /* .messageErreur{
     color:red;
 } */
+
+/* PROFIL */
+
+.btnCompte{
+    background-color: #e4e2dd;
+    color: #749a7e;
+    font-weight:900;
+    font-size: xx-large;
+    border-radius: 90px 90px 90px 90px / 90px 90px 90px 90px;
+}
