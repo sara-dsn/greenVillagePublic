@@ -84,7 +84,7 @@ class UtilisateurController extends AbstractController
                         ->subject('Confirmer votre compte GreenVillage')
 
                         // path of the Twig template to render
-                        ->htmlTemplate('mail/mail.html.twig')
+                        ->htmlTemplate('message/mail.html.twig')
 
                         // change locale used in the template, e.g. to match user's locale
                         // ->locale('de')
@@ -178,7 +178,7 @@ class UtilisateurController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', "Votre adresse mail vient d'être vérifée.");
 
-        return $this->redirectToRoute('app_connexion');
+        return $this->redirectToRoute('app_activeCompte');
     }
 
 
@@ -229,5 +229,10 @@ class UtilisateurController extends AbstractController
     public function test2(): Response
     {
         return $this->render('utilisateur/test2.html.twig', []);
+    }
+    #[Route('/activeCompte', name: 'app_activeCompte')]
+    public function activeCompte(): Response
+    {
+        return $this->render('message/activeCompte.html.twig', []);
     }
 }
