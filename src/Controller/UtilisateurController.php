@@ -198,7 +198,7 @@ class UtilisateurController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         // si l'utilisateur n'est pas connecté
-        return $this->render('utilisateur/connexion.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('utilisateur/test2.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
 
         // si l'utilisateur est connecté grâce au formulaire de connexion
         return $this->redirectToRoute('app_profil');
