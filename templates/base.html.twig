@@ -70,10 +70,14 @@
             <nav class="navbar ">
                 <div class="container-fluid d-flex flex-column ">
                     <div class="d-flex flex-row justify-content-around ">
-                        <a class="navbar-brand mx-4" href="#"><p>Nous contacter</p></a>
-                        <a class="navbar-brand mx-4" href="#"><p>Qui sommes-nous ?</p></a>
-                        <a class="navbar-brand mx-4" href="#"><p>Politique de confidentialité</p></a>
-                        <a class="navbar-brand mx-4" href="#"><p>Condition générale d'utilisation</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_contact')}}"><p>Nous contacter</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_mentionsLegales')}}"><p>Qui sommes-nous ?</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_politiqueDeConfidentialite')}}"><p>Politique de confidentialité</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_cgu')}}"><p>Condition générale d'utilisation</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_cgv')}}"><p>Condition générale de vente</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_accessibilite')}}"><p>Accessibilité</p></a>
+                        <a class="navbar-brand mx-2" href="{{path('app_planSite')}}"><p>Plan du site</p></a>
+
                     </div>
                     <div class=" container-fluid  d-flex justify-content-center logo ">
                         <img alt="reseaux sociaux" src="{{asset('image/icone/reseauxSociaux.png')}}" class=" img-fluid">
