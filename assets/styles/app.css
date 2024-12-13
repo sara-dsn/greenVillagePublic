@@ -222,3 +222,18 @@ li::marker{
 .silhouette{
     height:45rem;
 }
+
+/* FOOTER */
+
+.textFooter{
+    font-size: large;
+    font-weight: 600;
+    color:#e4e2dd;
+
+}
+.sousTitre{
+    font-size: xx-large;
+}
+.sousSousTitre{
+    font-size: x-large;
+}
