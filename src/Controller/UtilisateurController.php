@@ -7,6 +7,7 @@ use App\Entity\Client;
 use App\Entity\Adresse;
 use App\Form\ConnexionType;
 use App\Form\InscriptionType;
+use App\Form\MdpOublieType;
 use App\Security\EmailVerifier;
 use Symfony\Component\Clock\now;
 use Symfony\Component\Mime\Email;
@@ -237,9 +238,11 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/mdpOublie', name: 'app_mdpOublie')]
-    public function mdpOublie(): Response
+    public function mdpOublie(Request $request): Response
     {
-        
-        return $this->render('utilisateur/mdpOublie.html.twig', []);
+        $formO=$this->createForm(MdpOublieType::class);
+        return $this->render('utilisateur/mdpOublie.html.twig', [
+            "fromO"=>$formO,
+        ]);
     }
 }
