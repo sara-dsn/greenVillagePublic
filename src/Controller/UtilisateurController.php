@@ -239,6 +239,7 @@ class UtilisateurController extends AbstractController
     #[Route('/mdpOublie', name: 'app_mdpOublie')]
     public function mdpOublie(): Response
     {
+        
         return $this->render('utilisateur/mdpOublie.html.twig', []);
     }
 }
