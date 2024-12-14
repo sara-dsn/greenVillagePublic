@@ -3,6 +3,14 @@
 <h1 class="text-center titre my-5">Mot de passe oublié </h1>
 
 {{ form_start(formO) }}
+    {{form_errors(formO)}}
+    <div class="d-flex justify-content-center mb-4">
+        <div class="col-4">
+            {{form_row(formO.mail)}}
+            <p class="indicationMpd">un mail vous serra envoyé pour changer votre mot de </p>
+            {{form_row(formO.submit)}}
+        </div>
+    </div>
 {{ form_end(formO)}}
 
 {% endblock %}

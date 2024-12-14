@@ -189,6 +189,9 @@ background-color: #749a7e;
 .radio{
     background-color:#e4e2dd;
 }
+.indicationMpd{
+    color:black;
+}
 /* LES MESSAGES D'ERREUR */
 
 .messageErreur{

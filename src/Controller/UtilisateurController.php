@@ -242,7 +242,7 @@ class UtilisateurController extends AbstractController
     {
         $formO=$this->createForm(MdpOublieType::class);
         return $this->render('utilisateur/mdpOublie.html.twig', [
-            "fromO"=>$formO,
+            "formO"=>$formO,
         ]);
     }
 }

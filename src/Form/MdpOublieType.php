@@ -17,15 +17,16 @@ class MdpOublieType extends AbstractType
     {
         $builder
             ->add('mail',EmailType::class,[
+                "label"=>false,
                 'attr'=>[
                     "placeholder"=>"mail",
-                    "class"=>"inputFormulaire"
+                    "class"=>"inputFormulaire w-100 "
                 ]
             ])
             ->add('submit', SubmitType::class,[
+                "label"=>"changer de mot de passe",
                 "attr"=>[
-                    "placeholder"=>"changer de mot de passe",
-                    "class"=>"btnFormulaire"
+                    "class"=>"btnFormulaire  "
                 ]
             ])
         
