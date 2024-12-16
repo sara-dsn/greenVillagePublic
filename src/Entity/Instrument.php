@@ -51,7 +51,16 @@ class Instrument
     #[ORM\OneToOne(mappedBy: 'instrument', cascade: ['persist', 'remove'])]
     private ?Photo $photo = null;
 
- 
+    /**
+     * @var Collection<int, Description>
+     */
+    #[ORM\OneToMany(targetEntity: Description::class, mappedBy: 'instrument')]
+    private Collection $descriptions;
+
+    public function __construct()
+    {
+        $this->descriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,6 +181,36 @@ class Instrument
         }
 
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Description>
+     */
+    public function getDescriptions(): Collection
+    {
+        return $this->descriptions;
+    }
+
+    public function addDescription(Description $description): static
+    {
+        if (!$this->descriptions->contains($description)) {
+            $this->descriptions->add($description);
+            $description->setInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDescription(Description $description): static
+    {
+        if ($this->descriptions->removeElement($description)) {
+            // set the owning side to null (unless already changed)
+            if ($description->getInstrument() === $this) {
+                $description->setInstrument(null);
+            }
+        }
 
         return $this;
     }

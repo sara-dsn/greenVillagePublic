@@ -1,5 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1> </h1>
-
+<div class="d-flex justify-content-center my-5">
+    <div class="col-8 mt-4">
+        <div class="card cardInstrument w-100 ">
+            <h1 class="mx-4 titre text-center mt-3">{{ detail[0].libelle}}</h1>
+            <div class="d-flex row">
+                <div class="card-img w-50 px-5">
+                    <img class="img-fluid my-4 ms-4 cardInstrument " src="{{asset('instrument/'~ detail[0].photo.avecFond )}}"  alt="{{ detail[0].libelle }}">
+                </div>
+                <div class="card-text w-50 my-4 flex-column text-center">
+                    <div class="h-75 pt-5">
+                        <p class="prixInstrument">{{detail[0].prixHt}} €</p>
+                        </div>
+                    <div class="align-items h-25 me-3 ">
+                        <img class="col-2 img-fluid" alt="ajouter dans mes favoris" src="{{asset('image/icone/coeurVide.png')}}">
+                        <button class="btn btnAjoutPanier col-9" href="#" type="button">ajouter au panier</button>
+                    </div>
+                </div>
+            </div>
+            <p class="titre text-center">Description</p>
+            <table>
+            {% for description in descriptions %}
+            {% for parent in description%}
+                <tr>
+                    <td><img class="img-fluid" src="{{asset('image/icone/point.avif')}}" alt="icone d'un point"></td>
+                    <td>{{description.libelle}}</td>
+                    <td></td>
+                </tr> 
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
