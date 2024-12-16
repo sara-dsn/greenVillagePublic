@@ -12,9 +12,11 @@
                         <img class="img-fluid my-4 ms-4 cardInstrument col-10" src="{{asset('instrument/'~ instrument.photo.avecFond )}}"  alt="{{ instrument.libelle }}">
                     </div>
                     <div class="card-text w-50 my-4 flex-column text-center">
-                        <p class="mx-4 titreInstrument mt-2">{{ instrument.libelle}}</p>
-                        <p class="prixInstrument">{{instrument.prixHt}} €</p>
-                        <div class="align-items h-25 ">
+                        <div class="h-75 pt-5">
+                            <p class="mx-4 titreInstrument ">{{ instrument.libelle}}</p>
+                            <p class="prixInstrument">{{instrument.prixHt}} €</p>
+                            </div>
+                        <div class="align-items h-25 me-3 ">
                             <img class="col-2 img-fluid" alt="ajouter dans mes favoris" src="{{asset('image/icone/coeurVide.png')}}">
                             <button class="btn btnAjoutPanier col-9" href="" type="button">ajouter au panier</button>
                         </div>
