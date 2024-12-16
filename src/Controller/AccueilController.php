@@ -44,6 +44,14 @@ class AccueilController extends AbstractController
            'rubrique'=>$rubrique
         ]);
     }
+    #[Route('detail/{id}', name: 'app_detail')]
+    public function detail(EntityManagerInterface $entityManager, $id): Response
+    {
+        $details=$entityManager->getRepository(instrument::class)->findBy(['id'=> $id ]);
+        return $this->render('catalogue/detail.html.twig', [
+           'details' =>$details,
+        ]);
+    }
 
    
 }

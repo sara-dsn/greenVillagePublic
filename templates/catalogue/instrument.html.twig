@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center ">
     <div class="col-8 row mb-3  ">
         {% for instrument in instruments %}
-            <a class="col-6 my-4  pasDeDeco" href="" type="button">
+            <a class="col-6 my-4  pasDeDeco" href="{{path('app_detail',{'id':instrument.id})}}" type="button">
                 <div class="card cardInstrument w-100 flex-row">
                     <div class="card-img w-50">
                         <img class="img-fluid my-4 ms-4 cardInstrument col-10" src="{{asset('instrument/'~ instrument.photo.avecFond )}}"  alt="{{ instrument.libelle }}">
