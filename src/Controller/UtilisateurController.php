@@ -141,11 +141,11 @@ class UtilisateurController extends AbstractController
 
                 } else {
 
-                    return $this->redirectToRoute('app_connexion', [
+                    return $this->redirectToRoute('app_connexion', array(
                         'message' => "L'email ou le mot de passe est incorrect",
                         'erreur' => $erreur,
                         'pseudo' => $dernierPseudo,
-                    ]);
+                    ));
                 }
             } else {
                 return $this->redirectToRoute('app_inscription', [
