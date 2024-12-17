@@ -122,9 +122,16 @@ font-weight: 700;
 background-color: #e4e2dd;
 border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
 font-weight: 900;
-font-size: xx-large;
+font-size: large;
 color: black;
 }
+.btnAjoutPanierDetail{
+    background-color: #e4e2dd;
+    border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
+    font-weight: 900;
+    font-size: xx-large;
+    color: black;
+    }
 /* ca ne fonctionne que quand je mets la fleche sur le bouton, sinon le texte est gris */
 .btnAjoutPanier:hover{
     color: black;
