@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Couleur;
+use App\Entity\Description;
 use App\Entity\Rubrique;
 use App\Entity\Fournisseur;
 use App\Entity\TVA;
@@ -54,13 +55,16 @@ class Instrument
     /**
      * @var Collection<int, Description>
      */
-    #[ORM\OneToMany(targetEntity: Description::class, mappedBy: 'instrument')]
+    #[ORM\OneToMany(targetEntity: Description::class, mappedBy: 'instrument', orphanRemoval: true)]
     private Collection $descriptions;
 
     public function __construct()
     {
         $this->descriptions = new ArrayCollection();
     }
+
+
+
 
     public function getId(): ?int
     {
@@ -214,6 +218,7 @@ class Instrument
 
         return $this;
     }
+
 
 
 }

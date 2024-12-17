@@ -47,8 +47,8 @@ class AccueilController extends AbstractController
     #[Route('detail/{id}', name: 'app_detail')]
     public function detail(EntityManagerInterface $entityManager, $id): Response
     {
-        $descriptions=$entityManager->getRepository(Description::class)->findBy(["instrument_id"=>$id]);
-        $detail=$entityManager->getRepository(instrument::class)->findBy(['id'=> $id ]);
+        $descriptions=$entityManager->getRepository(Description::class)->findBy(['instrument'=>$id]);
+        $detail=$entityManager->getRepository(Instrument::class)->findBy(['id'=> $id ]);
         return $this->render('catalogue/detail.html.twig', [
            'detail' =>$detail,
            'descriptions' =>$descriptions,

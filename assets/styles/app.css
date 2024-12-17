@@ -97,7 +97,7 @@ font-size:x-large;
 font-weight: 700;
 }
 
-/* RUBRIQUE ET SOUS RUBRIQUE  */
+/* RUBRIQUE ET SOUS RUBRIQUE  ET DETAIL*/
 
 .titreBlanc{
     color: #e4e2dd;
@@ -112,11 +112,17 @@ font-weight: 700;
     font-weight: 900;
 
 }
+.description{
+    color: #e4e2dd;
+    font-size:xx-large;
+    font-weight: 900;
+
+}
 .btnAjoutPanier{
 background-color: #e4e2dd;
 border-radius: 140px 140px 140px 140px / 140px 140px 140px 140px;
 font-weight: 900;
-font-size:large;
+font-size: xx-large;
 color: black;
 }
 /* ca ne fonctionne que quand je mets la fleche sur le bouton, sinon le texte est gris */
@@ -148,6 +154,21 @@ background-color: #749a7e;
     color: #e4e2dd;
     font-size: xx-large;
     font-weight:900;
+}
+.prixInstrumentDetail{
+    color: #e4e2dd;
+    font-size: 5rem;
+    font-weight:900;
+}
+.dispo{
+    font-size: xx-large;
+    font-weight: 900;
+    color: #3fd60a ;
+}
+.rupture{
+    font-size: xx-large;
+    font-weight: 900;
+    color:#801818 ;
 }
 /* on change la proprieté bootstrap pour les btn */
 /* :root{
@@ -239,4 +260,13 @@ li::marker{
 }
 .sousSousTitre{
     font-size: x-large;
+}
+
+/* FLÈCHES */
+
+.avant{
+    rotate:90deg ;
+}
+.apres{
+    rotate:270deg ;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Instrument;
 use App\Repository\DescriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,17 +14,14 @@ class Description
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255)]
     private ?string $info = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
-    private ?self $parent = null;
-
     #[ORM\ManyToOne(inversedBy: 'descriptions')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?instrument $instrument = null;
 
     public function getId(): ?int
@@ -51,18 +49,6 @@ class Description
     public function setInfo(string $info): static
     {
         $this->info = $info;
-
-        return $this;
-    }
-
-    public function getParent(): ?self
-    {
-        return $this->parent;
-    }
-
-    public function setParent(?self $parent): static
-    {
-        $this->parent = $parent;
 
         return $this;
     }
