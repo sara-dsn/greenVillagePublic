@@ -145,24 +145,18 @@ class UtilisateurController extends AbstractController
 
 
     #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
+    public function connexion(Request $request, EntityManagerInterface $entityManager): Response
     {
-         // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
-         if ($this->getUser()) {
-            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
-            return $this->redirectToRoute('app_profil');
-        }
-
-        $erreur = $auth->getLastAuthenticationError();
-        $dernierPseudo = $auth->getLastUsername();
+ 
         $formC = $this->createForm(ConnexionType::class);
-        $formC->handlerequest($request);
-
+        $formC->handleRequest($request);
         if ($formC->isSubmitted() && $formC->isValid()) {
             $data = $formC->getData();
             $mail = $data['mail'];  
             $mdp = $data['password'];
             $date= new DateTime('now');
+            // dd('connecte');
+            // dd("connexion");
 
             $utilisateur = $entityManager->getRepository(Client::class)->findOneBy(['mail' => $mail]);
 
@@ -178,8 +172,7 @@ class UtilisateurController extends AbstractController
 
                 return $this->redirectToRoute('app_connexion',[
                     'message' => "L'email ou le mot de passe est incorrect",
-                    'erreur' => $erreur,
-                    'pseudo' => $dernierPseudo,
+                  
                 ]);
             }
         
@@ -193,20 +186,26 @@ class UtilisateurController extends AbstractController
   
 
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
-    {           
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {                   dd("login");
+
+                // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
+         if ($this->getUser()) {
+            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
+            return $this->redirectToRoute('app_profil');
+        } 
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        // dd($error);
-        // dd($lastUsername);
+        dd($error);
+        dd($lastUsername);
         // si l'utilisateur n'est pas connecté
-        return $this->render('utilisateur/profil.html.twig', [
-            'lastUsername' => $lastUsername, 
-            'error' => $error
+        return $this->redirectToRoute('app_connexion', [
+            // 'last_username' => $lastUsername, 
+            // 'error' => $error
         ]);
 
         // // si l'utilisateur est connecté grâce au formulaire de connexion
@@ -226,6 +225,11 @@ class UtilisateurController extends AbstractController
     {
         return $this->render('utilisateur/profil.html.twig');
     } 
+    // #[Route(path: '/log', name: 'app_log')]
+    // public function log(): Response
+    // {
+    //     return $this->render('utilisateur/login.html.twig');
+    // } 
 
     #[Route('/mdpOublie', name: 'app_mdpOublie')]
     public function mdpOublie(Request $request): Response

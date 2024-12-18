@@ -20,6 +20,8 @@ class ConnexionType extends AbstractType
     
             ->add('mail',TextType::class,[
                 'attr'=>[
+                    'name' => 'mail', // Symfony veut _username
+
                     'placeholder'=>'  mail',
                     'class'=>'inputFormulaire w-100 my-2'
                 ],
@@ -28,6 +30,8 @@ class ConnexionType extends AbstractType
             )
             ->add('password',PasswordType::class,[ 
                 'attr'=>[
+                    'name' => 'password', // Symfony veut _password
+
                     "placeholder"=>"  mot de passe",
                 "class"=>"inputFormulaire w-100 my-2"
                 ],

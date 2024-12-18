@@ -17,12 +17,16 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
+                username_parameter: mail
+                password_parameter: password
                 login_path: app_connexion #Cette ligne indique la route où se trouve le formulaire de connexion 
-                check_path: app_connexion # Cette ligne indique la route où Symfony vérifie les identifiants soumis par le formulaire
+                check_path: app_login # Cette ligne indique la route où Symfony vérifie les identifiants soumis par le formulaire
                 enable_csrf: true
-                default_target_path: app_profil
+                # default_target_path: app_profil
             custom_authenticator: App\Security\LoginFormAuthenticator
             entry_point: App\Security\LoginFormAuthenticator
+            # entry_point: form_login
+
             logout:
                 path: app_logout
                 # where to redirect after logout

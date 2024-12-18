@@ -5,7 +5,13 @@
         {% for flash_error in app.flashes('verify_email_error') %}
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
-    {{ form_start(formC) }}
+          {# {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %} #}
+           {# {% if app.user %}
+            <div class="mb-3">You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a></div>
+        {% endif %} #}
+    {{ form_start(formC ) }}
         {{ form_errors(formC) }}
 
         <div class="d-flex justify-content-center container-fluid">
@@ -18,7 +24,15 @@
                     {{ form_row(formC.mail, {'attr':{'value':app.request.query.get('mail')}})}}
                 {% endif %}
                 {% if not app.request.query.get('dejaCompte') %}
+                {# {% if last_username is defined %}
+                    {{ form_row(formC.mail, {'attr': {'value': app.request.query.get('last_username')}}) }}
+                    {% else %}
+                    {{ form_row(formC.mail) }}
+                    {% endif %} #}
+
                     {{ form_row(formC.mail)}}
+                    {# {{ form_row(formC.mail, {'attr':{'value': last_username , 'autocomplete': 'email', 'autofocus': true}} )}} #}
+
                 {% endif %}
                 {{ form_row(formC.password)}}
                 <div class="d-flex justify-content-end">
