@@ -7,7 +7,9 @@
     <div class="container-fluid d-flex justify-content-center">
         <div class="col-6">
         {% if app.request.query.get('message') %}
-            <p class="text-center messageErreur"> {{ message }}</p>
+        {# {{ dump(app.request.query) }} #}
+
+            <p class="text-center messageErreur"> {{ app.request.query.get('message') }} </p>
         {% endif %}
             {{ form_start(formI)}}
             {{form_errors(formI)}}

@@ -118,6 +118,12 @@ class UtilisateurController extends AbstractController
     #[Route('/connexion', name: 'app_connexion')]
     public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
     {
+         // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
+         if ($this->getUser()) {
+            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
+            return $this->redirectToRoute('app_profil');
+        }
+
         $erreur = $auth->getLastAuthenticationError();
         $dernierPseudo = $auth->getLastUsername();
         $formC = $this->createForm(ConnexionType::class);
@@ -129,7 +135,6 @@ class UtilisateurController extends AbstractController
             $date= new DateTime('now');
 
             $utilisateur = $entityManager->getRepository(Client::class)->findOneBy(['mail' => $mail]);
-
             if ($utilisateur) { 
                 $mdpCorrect = $utilisateur->getPassword();
                 $mdp = $data['password'];
@@ -137,7 +142,7 @@ class UtilisateurController extends AbstractController
                     $utilisateur->setDerniereConnexion($date);
                     $entityManager->persist($utilisateur);
                     $entityManager->flush();
-                    $this->redirectToRoute('app_profil');
+                   return $this->redirectToRoute('app_profil');
 
                 } else {
 
@@ -189,23 +194,17 @@ class UtilisateurController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {           
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
-        if ($this->getUser()) {
-            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
-            return $this->redirectToRoute('app_profil');
-        }
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         // dd($error);
-// dd($lastUsername);
+        // dd($lastUsername);
         // si l'utilisateur n'est pas connecté
         return $this->render('utilisateur/test2.html.twig', [
-            'last_username' => $lastUsername, 
+            'lastUsername' => $lastUsername, 
             'error' => $error
         ]);
 
