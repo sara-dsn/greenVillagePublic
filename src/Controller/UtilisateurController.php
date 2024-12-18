@@ -187,7 +187,8 @@ class UtilisateurController extends AbstractController
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
-    {                   dd("login");
+    {                 
+        //   dd("login");
 
                 // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
          if ($this->getUser()) {
@@ -200,8 +201,8 @@ class UtilisateurController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        dd($error);
-        dd($lastUsername);
+        // dd($error);
+        // dd($lastUsername);
         // si l'utilisateur n'est pas connecté
         return $this->redirectToRoute('app_connexion', [
             // 'last_username' => $lastUsername, 
