@@ -10,8 +10,8 @@
 
         <div class="d-flex justify-content-center container-fluid">
             <div class="col-6 my-2">
-                {% if message is defined %}
-                    <p class="text-center messageErreur"> {{ message }}</p>
+                {% if app.request.query.get('message') %}
+                    <p class="text-center messageErreur"> {{ app.request.query.get('message') }}</p>
                 {% endif %}
                {% if app.request.query.get('dejaCompte') %}
                     <p class="text-center messageErreur">{{ app.request.query.get('dejaCompte')}}</p>

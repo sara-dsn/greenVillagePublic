@@ -74,7 +74,7 @@ class UtilisateurController extends AbstractController
                 $entityManager->persist($adresse);
                 $entityManager->flush();
 
-                $session=$request->getSession()->set("LAST_USERNAME" , $leMail);
+                // $session=$request->getSession()->set("LAST_USERNAME" , $leMail);
 
                 $this->emailVerifier->sendEmailConfirmation(
                     'app_confirmationMail',
@@ -112,59 +112,6 @@ class UtilisateurController extends AbstractController
             'formI' => $formI,
         ]);
     }
-    
-
-
-    #[Route('/connexion', name: 'app_connexion')]
-    public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
-    {
-         // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
-         if ($this->getUser()) {
-            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
-            return $this->redirectToRoute('app_profil');
-        }
-
-        $erreur = $auth->getLastAuthenticationError();
-        $dernierPseudo = $auth->getLastUsername();
-        $formC = $this->createForm(ConnexionType::class);
-        $formC->handlerequest($request);
-
-        if ($formC->isSubmitted() && $formC->isValid()) {
-            $data = $formC->getData();
-            $mail = $data['mail'];
-            $date= new DateTime('now');
-
-            $utilisateur = $entityManager->getRepository(Client::class)->findOneBy(['mail' => $mail]);
-            if ($utilisateur) { 
-                $mdpCorrect = $utilisateur->getPassword();
-                $mdp = $data['password'];
-                if (password_verify($mdp, $mdpCorrect)) {
-                    $utilisateur->setDerniereConnexion($date);
-                    $entityManager->persist($utilisateur);
-                    $entityManager->flush();
-                   return $this->redirectToRoute('app_profil');
-
-                } else {
-
-                    return $this->redirectToRoute('app_connexion', array(
-                        'message' => "L'email ou le mot de passe est incorrect",
-                        'erreur' => $erreur,
-                        'pseudo' => $dernierPseudo,
-                    ));
-                }
-            } else {
-                return $this->redirectToRoute('app_inscription', [
-                    'message' => "Vous n'êtes pas encore inscrit",
-                ]);
-            };
-        }
-
-        return $this->render('utilisateur/connexion.html.twig', [
-            'formC' => $formC,
-            // 'message'=>'',
-        ]);
-    }
-  
 
 
     #[Route('/confirmationMail', name: 'app_confirmationMail')]
@@ -190,6 +137,60 @@ class UtilisateurController extends AbstractController
     }
 
 
+    #[Route('/activeCompte', name: 'app_activeCompte')]
+    public function activeCompte(): Response
+    {
+        return $this->render('message/activeCompte.html.twig', []);
+    }
+
+
+    #[Route('/connexion', name: 'app_connexion')]
+    public function connexion(Request $request, EntityManagerInterface $entityManager, Security $security, AuthenticationUtils $auth): Response
+    {
+         // renvoie l'utilisateur actuellement connecté, ou null si personne n'est connecté.
+         if ($this->getUser()) {
+            // Si un utilisateur est déjà connecté, il est redirigé vers la page profil, cela l'empêche de voir la page de connexion inutilement.
+            return $this->redirectToRoute('app_profil');
+        }
+
+        $erreur = $auth->getLastAuthenticationError();
+        $dernierPseudo = $auth->getLastUsername();
+        $formC = $this->createForm(ConnexionType::class);
+        $formC->handlerequest($request);
+
+        if ($formC->isSubmitted() && $formC->isValid()) {
+            $data = $formC->getData();
+            $mail = $data['mail'];  
+            $mdp = $data['password'];
+            $date= new DateTime('now');
+
+            $utilisateur = $entityManager->getRepository(Client::class)->findOneBy(['mail' => $mail]);
+
+
+            if ($utilisateur && password_verify($mdp,$utilisateur->getPassword()) && $mail == $utilisateur->getMail()) {
+                
+                $utilisateur->setDerniereConnexion($date);
+                $entityManager->persist($utilisateur);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_profil');
+
+            } else {
+
+                return $this->redirectToRoute('app_connexion',[
+                    'message' => "L'email ou le mot de passe est incorrect",
+                    'erreur' => $erreur,
+                    'pseudo' => $dernierPseudo,
+                ]);
+            }
+        
+        }
+
+        return $this->render('utilisateur/connexion.html.twig', [
+            'formC' => $formC,
+            // 'message'=>'',
+        ]);
+    }
+  
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
@@ -203,15 +204,14 @@ class UtilisateurController extends AbstractController
         // dd($error);
         // dd($lastUsername);
         // si l'utilisateur n'est pas connecté
-        return $this->render('utilisateur/test2.html.twig', [
+        return $this->render('utilisateur/profil.html.twig', [
             'lastUsername' => $lastUsername, 
             'error' => $error
         ]);
 
-        // si l'utilisateur est connecté grâce au formulaire de connexion
-        return $this->redirectToRoute('app_profil');
+        // // si l'utilisateur est connecté grâce au formulaire de connexion
+        // return $this->redirectToRoute('app_profil');
     } 
-
 
 
     #[Route(path: '/logout', name: 'app_logout')]
@@ -220,29 +220,12 @@ class UtilisateurController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     } 
     
-     #[Route(path: '/profil', name: 'app_profil')]
+
+    #[Route(path: '/profil', name: 'app_profil')]
     public function profil(): Response
     {
-       
         return $this->render('utilisateur/profil.html.twig');
-
     } 
-    
-    #[Route('/test', name: 'app_test')]
-    public function test(): Response
-    {
-        return $this->render('utilisateur/test.html.twig', []);
-    }
-    #[Route('/test2', name: 'app_test2')]
-    public function test2(): Response
-    {
-        return $this->render('utilisateur/test2.html.twig', []);
-    }
-    #[Route('/activeCompte', name: 'app_activeCompte')]
-    public function activeCompte(): Response
-    {
-        return $this->render('message/activeCompte.html.twig', []);
-    }
 
     #[Route('/mdpOublie', name: 'app_mdpOublie')]
     public function mdpOublie(Request $request): Response
